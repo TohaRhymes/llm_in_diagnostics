@@ -9,10 +9,12 @@ If you want to cite this research, please use the following format:
 
 # Github Structure
 
-* `0_fetch_papers.ipynb` - This notebook fetches unique articles from NCBI-PMC, BioRxiv, MedRxiv, and Arxiv, and stores them in the `data/` directory:
+* `0_fetch_*.py` (+ utility script `utils_fetch.py`) - These scripts fetche unique articles from NCBI-PMC, BioRxiv, MedRxiv, and Arxiv, and stores them in the `data/` directory:
   - `data/0_ncbi.csv`
   - `data/0_bio_med.csv`
   - `data/0_arxiv_unique.csv`
+ 
+**SOMETIMES arxiv needed to be launched several times....**
 
 * `1_merge_all.ipynb` - Merges all the data from the previous step into a single file `data/0_all.csv`, while removing duplicates.
 
