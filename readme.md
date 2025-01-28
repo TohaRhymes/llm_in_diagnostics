@@ -13,16 +13,22 @@ If you want to cite this research, please use the following format:
   - `data/0_ncbi.csv`
   - `data/0_bio_med.csv`
   - `data/0_arxiv_unique.csv`
- 
-**SOMETIMES arxiv needed to be launched several times....**
 
-* `1_merge_all.ipynb` - Merges all the data from the previous step into a single file `data/0_all.csv`, while removing duplicates.
+* `1_merge_all.ipynb` - Merges all the data from the previous step into a single file `data/0_all.csv`, while removing duplicates. 
 
 * `2_first_analysis.ipynb`:
   - Cleans the text data.
   - Merges rows that are similar in titles or abstracts, saving the output to `data/cleaned.csv`.
   - Analyzes word and phrase frequencies and produces histograms.
   - Extracts clinical-genetics related articles and saves them to `data/clinic_genetic.csv` (some additional manual deduplication was done afterwards).
+
+* `3_old_new_merged.ipynb` -- needed if there are previous versions of syst reviews:
+  - Gets all data from `old_data_dir`.
+  - Annotate new data, if exist in old.
+  - Export 2 files:
+      - `new_data_file_out = 'data/clinic_genetic_formatted.csv'` - new data + old anno
+      - `extra_data_file_out = 'data/clinic_genetic_extra.csv'` - old data, whic was not in new
+* `4_highlight.py` -- to easily go through new data, and find keywords
 
 * `data/` - Directory containing all the collected and processed data.
 
