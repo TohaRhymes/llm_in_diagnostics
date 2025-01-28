@@ -12,7 +12,8 @@ import requests
 import pandas as pd
 from tqdm import tqdm
 
-from utils_fetch import start_date, end_date, query_terms_list
+from utils_fetch import start_date, end_date, query_terms_list, DATA_DIR
+import os
 
 # Configure the logging format and level
 logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -111,7 +112,7 @@ logging.info("JUST STARTED")
 
 bio_medrxiv_papers = fetch_rxiv_both_servers(start_date, end_date, query_terms_list)
 logging.info(f"FINISHED biomedrxiv, len: {len(bio_medrxiv_papers)}")
-save_collected(bio_medrxiv_papers, 'data/0_bio_med.csv')
+save_collected(bio_medrxiv_papers, os.path.join(DATA_DIR, '0_bio_med.csv'))
 
 
 

@@ -7,8 +7,10 @@ import logging
 from Bio import Entrez
 import pandas as pd
 from tqdm import tqdm
+import itertools
 
-from utils_fetch import start_date, end_date, query_terms_list
+from utils_fetch import start_date, end_date, query_terms_list, DATA_DIR
+import os
 
 # Configure the logging format and level
 logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -35,13 +37,13 @@ def create_search_query(query_terms):
     return final_query
 
 # Function to fetch NCBI (PubMed) papers
-def fetch_ncbi_papers(query):
+def fetch_ncbi_papers(query, mindate, maxdate):
     logging.info('ncbi searching...')
     handle = Entrez.esearch(db="pubmed", 
                             term=query, 
                             retmax=1000000, 
-                            mindate="2023", 
-                            maxdate="2024")
+                            mindate=mindate, 
+                            maxdate=maxdate)
     record = Entrez.read(handle)
     id_list = record["IdList"]
     handle.close()
@@ -49,7 +51,7 @@ def fetch_ncbi_papers(query):
     handle = Entrez.efetch(db="pubmed", id=",".join(id_list), retmode="xml")
     records = Entrez.read(handle)
     results = []
-    for article in tqdm(records['PubmedArticle']):
+    for article in records['PubmedArticle']:
         title = article['MedlineCitation']['Article']['ArticleTitle']
         abstract = ""
         try:
@@ -88,14 +90,47 @@ def save_collected(all_papers, name):
 
 # In[7]:
 
-
+all_together = False
 query = create_search_query(query_terms_list)
 
-# now actually search
-logging.info("JUST STARTED")
+if all_together:
 
-ncbi_papers = fetch_ncbi_papers(query)
-logging.info(f"FINISHED ncbi, len: {len(ncbi_papers)}")
-save_collected(ncbi_papers, 'data/0_ncbi.csv')
-
-
+    # now actually search
+    logging.info("JUST STARTED")
+    ncbi_papers = fetch_ncbi_papers(query, start_date, end_date)
+    logging.info(f"FINISHED ncbi, len: {len(ncbi_papers)}")
+    save_collected(ncbi_papers, os.path.join(DATA_DIR, '0_ncbi.csv'))
+else:
+    l1, l2 = query_terms_list
+    combinations = list(itertools.product(l1, l2)) 
+    # now actually search
+    logging.info("JUST STARTED")
+    all_papers = [pd.DataFrame(fetch_ncbi_papers(query, start_date, end_date)), ] #kostyl -- first all together, but we can miss smth
+    for el1, el2 in tqdm(combinations):
+        try:
+            query = create_search_query([[el1,],[el2,]])
+            ncbi_papers = fetch_ncbi_papers(query, start_date, end_date)
+            all_papers.append(pd.DataFrame(ncbi_papers))
+        except RuntimeError:
+            print(el1, el2)
+            continue
+    ncbi_papers = pd.concat(all_papers).drop_duplicates()
+    save_collected(ncbi_papers, os.path.join(DATA_DIR, '0_ncbi.csv'))
+    logging.info(f"FINISHED ncbi, len: {len(ncbi_papers)}")
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+         
