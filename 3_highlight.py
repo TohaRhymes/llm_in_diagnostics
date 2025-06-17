@@ -26,65 +26,66 @@ DATA_DIR = 'data'
 
 phrases_to_include_list = [
     [
-     "LLM", 
-     "large language model", 
-     "NLP", 
-     "natural language processing",
-     "GPT", 
-     "chatGPT", 
-     "transformer", 
-     "BERT", 
-     "Bidirectional Encoder Representation", 
-     "RAG", 
-     "augmented generation", 
-     "generative AI", 
-     "AI assistant", 
-     "prompt", 
-     "chatbot", 
-     "prompt engineering", 
-     "attention mechanism", 
-     "chain-of-thought", 
-     "chain of thought", 
-     "agent"
+        "LLM",
+        "large language model",
+         "NLP", 
+         "natural language processing",
+        "GPT",
+        "chatGPT",
+        "transformer",
+        "BERT",
+        "Bidirectional Encoder Representation",
+        "RAG",
+        "augmented generation",
+        "generative AI",
+        "AI assistant",
+        "prompt engineering",
+        "chatbot",
+        "prompt engineering",
+        "attention mechanism",
+        "chain-of-thought",
+        "chain of thought",
     ],
-    ['electronic health record', 
-     'ehr', 
-     'clinical', 
-     'case report',
-     'cds', 
-     "intensive care unit",
-     'medical', 
-     'syndrome', 
-     'phenotype', 
-     "complex trait"],
     [
-        "inherit", 
-     "heredit", 
-     "heritability", 
-     "gwas", 
-     "genome-wide", 
-     "genome wide", 
-     "association stud", 
-     "snp",
-     "single nucleotide",
-     "genetic", 
-     "variant interpretation", 
-     "genomic varia", 
-     "human gen",
-     "NGS",
-     "generation sequencing"
-    ]
-
+        "electronic health record",
+        "ehr",
+        "clinical",
+        "case report",
+        "cds",
+        "intensive care unit",
+        "medical",
+        "syndrome",
+        "phenotype",
+        "complex trait",
+    ],
+    [
+        "inherit",
+        "heredit",
+        "heritability",
+        "gwas",
+        "genome-wide",
+        "genome wide",
+        "association stud",
+        "snp",
+        "single nucleotide",
+        "genetic",
+        "variant interpretation",
+        "genomic varia",
+        "human gen",
+        "NGS",
+        "generation sequencing",
+    ],
 ]
-
 
 colors=["\033[93m", "\033[91m", "\033[92m"]
 
 phrases_to_check = flatten_list(phrases_to_include_list)
 phrases_list_lower = [[i.lower() for i in j] for j in phrases_to_include_list]
 
+file_to_highlight = os.path.join(DATA_DIR, 'clinic_genetic.csv') 
+file_to_highlight = os.path.join(DATA_DIR, '_clinic_genetic_formatted_ST1_raw.csv') 
 
-data = pd.read_csv(os.path.join(DATA_DIR, 'clinic_genetic.csv'))[['title', 'abstract', 'source']]
+data = pd.read_csv(file_to_highlight)[['title', 'abstract', 'source']]
 shape = data.shape[0]
 for index_of_absract, (title, abstract) in enumerate(zip(data.title, data.abstract)):    
     
