@@ -20,7 +20,7 @@ If you want to cite this research, please use the following format:
   - Cleans the text data.
   - Merges rows that are similar in titles or abstracts, saving the output to `data/cleaned.csv`.
   - Analyzes word and phrase frequencies and produces histograms.
-  - Extracts clinical-genetics related articles and saves them to `data/clinic_genetic.csv` (some additional manual deduplication was done afterwards).
+  - Extracts clinical-genetics related articles and saves them to `data/clinic_genetic.csv` (some additional manual deduplication was done afterwards in order to get `ST1` of teh article).
 
 * `3_highlight.py` -- to easily go through new data, and find keywords
 
@@ -30,7 +30,7 @@ All further annotation was conducted manually using Google Spreadsheets.
 
 # Data
 
-The following are the primary data files generated and used in this project:
+The following are the primary data files generated and used in this project (some of the are zipped, due to size restrictions):
 
 - `data/0_ncbi.csv` - Unique articles from NCBI-PMC.
 - `data/0_bio_med.csv` - Unique articles from BioRxiv and MedRxiv.
@@ -38,3 +38,5 @@ The following are the primary data files generated and used in this project:
 - `data/0_all.csv` - Combined data from all sources after removing duplicates.
 - `data/cleaned.csv` - Cleaned and merged data.
 - `data/clinic_genetic.csv` - Clinical-genetic articles selected for final analysis.
+- `data/ST1.csv` and `data/ST2.csv` -- supplementary tables from the article, their format is same and described in `ST_readme.md`
+` 
