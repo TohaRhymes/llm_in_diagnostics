@@ -6,7 +6,7 @@
 | `abstract`          | Abstract of the article                                                     |
 | `source`            | Source(s) where the article was found; duplicates may have multiple sources |
 | `review`            | Indicates review article: `1` = review, `0` = not review, empty = unknown   |
-| `relevance`         | Overall relevance of the article (based on content)                         |
+| `relevance`         | Overall relevance of the article: 1,2,3 (0 - irrelevant, 1 - partially, 2 - relevant)|
 | `code`              | (Reserved / unused)                                                         |
 | `what section used` | Main section(s) where the article is used (see mapping below)               |
 | `subgroup`          | Specific task within the section (see article for details)                  |
