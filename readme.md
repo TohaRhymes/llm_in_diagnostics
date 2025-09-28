@@ -5,7 +5,17 @@ This project presents a systematic review and analysis of how large language mod
 # For citation
 
 If you want to cite this research, please use the following format:
-`...`
+```
+@misc{changalidis2025systematicreviewgenerativeai,
+      title={A Systematic Review on the Generative AI Applications in Human Medical Genomics}, 
+      author={Anton Changalidis and Yury Barbitoff and Yulia Nasykhova and Andrey Glotov},
+      year={2025},
+      eprint={2508.20275},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2508.20275}, 
+}
+```
 
 # Github Structure
 
