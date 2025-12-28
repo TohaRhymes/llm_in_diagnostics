@@ -1,0 +1,81 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36" version="29.2.1">
+  <diagram name="Страница — 1" id="1cdhihTCr64qWNGkHqoL">
+    <mxGraphModel dx="1491" dy="711" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="SMgg2pcjD071IgOoY__p-1" edge="1" parent="1" source="SMgg2pcjD071IgOoY__p-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="SMgg2pcjD071IgOoY__p-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SMgg2pcjD071IgOoY__p-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;b&gt;Initial Search&lt;/b&gt;&lt;div&gt;Query combining terms from LLMs and Genetics/Medicine&lt;br&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 12px;&quot;&gt;Records identified: 57,558, from which:&lt;/span&gt;&lt;/div&gt;&lt;div&gt;PubMed: 34,923&amp;nbsp;&lt;/div&gt;&lt;div&gt;arXiv: 5,972&lt;/div&gt;biorxiv: 11,213&lt;div&gt;medrxiv: 5,450&lt;br&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="130" width="401" x="319" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="SMgg2pcjD071IgOoY__p-3" edge="1" parent="1" source="SMgg2pcjD071IgOoY__p-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="SMgg2pcjD071IgOoY__p-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SMgg2pcjD071IgOoY__p-4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;b&gt;Automated duplicates merging&lt;/b&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Records after duplicates removed: 51,613&lt;/span&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="400" x="320" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="SMgg2pcjD071IgOoY__p-5" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.44;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="SMgg2pcjD071IgOoY__p-21">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="511" y="450.0000000000002" as="sourcePoint" />
+            <mxPoint x="511" y="460" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SMgg2pcjD071IgOoY__p-6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;b&gt;Primary Semantic Analysis&lt;/b&gt;&lt;div&gt;&lt;div&gt;Perform frequency analysis, identify key-phrases, filter relevant articles&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;b&gt;Key phrases&lt;/b&gt;:&lt;/div&gt;&lt;div&gt;&lt;b&gt;Group 1:&lt;/b&gt; LLM-related terms (LLM, GPT, BERT, transformer, etc.)&lt;/div&gt;&lt;div&gt;&lt;b&gt;Group 2:&lt;/b&gt; Clinical terms (clinical, syndrome, complex trait, etc.)&lt;/div&gt;&lt;div&gt;&lt;b&gt;Group 3:&lt;/b&gt; Genetics-related terms (inherited, GWAS, genome, etc.)&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Records after initial filtering: 576&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="140" width="400" x="320" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="SMgg2pcjD071IgOoY__p-7" edge="1" parent="1" source="SMgg2pcjD071IgOoY__p-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="SMgg2pcjD071IgOoY__p-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SMgg2pcjD071IgOoY__p-8" edge="1" parent="1" source="SMgg2pcjD071IgOoY__p-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="SMgg2pcjD071IgOoY__p-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SMgg2pcjD071IgOoY__p-9" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;&lt;b&gt;Initial Filtering&lt;/b&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;b&gt;Classify to:&lt;/b&gt;&lt;/div&gt;&lt;div&gt;-&lt;b&gt; irrelevant&lt;/b&gt; (not related to transformers and/or diagnostics, genetics),&amp;nbsp;&lt;/div&gt;&lt;div&gt;-&lt;b&gt; partially relevant&lt;/b&gt; (it does not use LLM/transformers OR area is not genetics and diagnostics)&lt;/div&gt;&lt;div&gt;-&lt;b&gt; relevant&lt;/b&gt; (research/tool on the application of the transformers and diagnostics and genetics)&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Result: 298 (184 partially relevant articles, 114 fully relevant articles)&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="160" width="400" x="320" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="SMgg2pcjD071IgOoY__p-10" edge="1" parent="1" source="SMgg2pcjD071IgOoY__p-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="SMgg2pcjD071IgOoY__p-14">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="445" y="1110" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SMgg2pcjD071IgOoY__p-11" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;&lt;b&gt;Final Categorization&lt;/b&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Final set (325):&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;- partially relevant: 203&lt;/span&gt;&lt;/div&gt;&lt;div&gt;- fully relevant: 122&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="90" width="190" x="424.5" y="880" as="geometry" />
+        </mxCell>
+        <mxCell id="SMgg2pcjD071IgOoY__p-12" edge="1" parent="1" source="SMgg2pcjD071IgOoY__p-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="SMgg2pcjD071IgOoY__p-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SMgg2pcjD071IgOoY__p-13" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;b&gt;Manual Addition&lt;/b&gt;&lt;br&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;Manually add several relevant articles from other sources (27):&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;- &lt;b&gt;partially relevant&lt;/b&gt;: 19&lt;/span&gt;&lt;/div&gt;&lt;div&gt;- &lt;b&gt;fully relevant&lt;/b&gt;: 8&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100" width="190" x="320" y="740" as="geometry" />
+        </mxCell>
+        <mxCell id="SMgg2pcjD071IgOoY__p-14" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;&lt;b&gt;Usage in the analysis&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;195 articles were used for analysis&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp;(73&amp;nbsp;&lt;b&gt;partially relevant&lt;/b&gt; and 122&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;b style=&quot;background-color: initial;&quot;&gt;relevant&lt;/b&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;)&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;:&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;- &lt;b&gt;Introduction&lt;/b&gt;: 14&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;-&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;&lt;b&gt;Knowledge Navigation:&lt;/b&gt;&amp;nbsp;34&lt;/span&gt;&lt;/div&gt;&lt;div&gt;-&lt;b&gt;&amp;nbsp;Clinical Data Analysis&lt;/b&gt;: 43&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;-&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;&lt;b&gt;Genetic Data Analysis:&lt;/b&gt;&amp;nbsp;32&lt;/span&gt;&lt;/div&gt;-&lt;b&gt;&amp;nbsp;&lt;/b&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;&lt;b&gt;Communication&lt;/b&gt;&lt;/span&gt;: 28&lt;div&gt;-&lt;b&gt;&amp;nbsp;&lt;/b&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;&lt;b&gt;Related Research Areas&lt;/b&gt;&lt;/span&gt;: 43&lt;/div&gt;&lt;div&gt;- &lt;b&gt;Discussion (techniques, data, and bias)&lt;/b&gt;: 27&lt;/div&gt;&lt;div&gt;The categories and subcategories may overlap.&lt;/div&gt;" vertex="1">
+          <mxGeometry height="190" width="401" x="319" y="990" as="geometry" />
+        </mxCell>
+        <mxCell id="SMgg2pcjD071IgOoY__p-15" parent="1" style="rounded=1;whiteSpace=wrap;html=1;rotation=-90;" value="Identification" vertex="1">
+          <mxGeometry height="25" width="140" x="220" y="142.5" as="geometry" />
+        </mxCell>
+        <mxCell id="SMgg2pcjD071IgOoY__p-16" parent="1" style="rounded=1;whiteSpace=wrap;html=1;rotation=-90;" value="Screening" vertex="1">
+          <mxGeometry height="25" width="70" x="255" y="257.5" as="geometry" />
+        </mxCell>
+        <mxCell id="SMgg2pcjD071IgOoY__p-17" parent="1" style="rounded=1;whiteSpace=wrap;html=1;rotation=-90;" value="Eligibility" vertex="1">
+          <mxGeometry height="23.5" width="410" x="85" y="507.75" as="geometry" />
+        </mxCell>
+        <mxCell id="SMgg2pcjD071IgOoY__p-18" parent="1" style="rounded=1;whiteSpace=wrap;html=1;rotation=-90;" value="Included" vertex="1">
+          <mxGeometry height="23.5" width="448.13" x="65.94" y="949.07" as="geometry" />
+        </mxCell>
+        <mxCell id="SMgg2pcjD071IgOoY__p-19" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;b&gt;Excluded&lt;/b&gt;&lt;br&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;Irrelevant articles: 251&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="70" width="140" x="550" y="770" as="geometry" />
+        </mxCell>
+        <mxCell id="SMgg2pcjD071IgOoY__p-20" edge="1" parent="1" source="SMgg2pcjD071IgOoY__p-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="SMgg2pcjD071IgOoY__p-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SMgg2pcjD071IgOoY__p-21" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;b&gt;Manual duplicates merging&lt;/b&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Records after duplicates removed: 550&lt;/span&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="359" x="361" y="480" as="geometry" />
+        </mxCell>
+        <mxCell id="SMgg2pcjD071IgOoY__p-22" parent="1" style="rounded=1;whiteSpace=wrap;html=1;rotation=-90;" value="Screening" vertex="1">
+          <mxGeometry height="25" width="70" x="301" y="497.5" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

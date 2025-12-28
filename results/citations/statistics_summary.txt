@@ -1,0 +1,43 @@
+======================================================================
+AGGREGATED STATISTICS SUMMARY
+======================================================================
+
+OVERALL STATISTICS:
+  Total articles in ST2: 322
+  Total annotated articles: 192
+  Total cited articles: 137
+  Citation rate: 71.4%
+
+RELEVANCE DISTRIBUTION (ANNOTATED ARTICLES):
+  Relevance 0 (irrelevant): 0 (0.0%)
+  Relevance 1 (partially relevant): 70 (36.5%)
+  Relevance 2 (fully relevant): 122 (63.5%)
+
+RELEVANCE DISTRIBUTION (CITED ARTICLES):
+  Relevance 0 (irrelevant): 0 (0.0%)
+  Relevance 1 (partially relevant): 50 (36.5%)
+  Relevance 2 (fully relevant): 87 (63.5%)
+
+SUPERCATEGORY STATISTICS (RESULTS SECTIONS):
+  Knowledge Navigation:
+    Unique articles: 34
+    Total entries (with duplicates): 36
+    Cited articles: 21
+  Clinical Data Analysis:
+    Unique articles: 43
+    Total entries (with duplicates): 44
+    Cited articles: 29
+  Genetic Data Analysis:
+    Unique articles: 32
+    Total entries (with duplicates): 33
+    Cited articles: 26
+  Communication:
+    Unique articles: 28
+    Total entries (with duplicates): 48
+    Cited articles: 37
+  Related Research Areas:
+    Unique articles: 43
+    Total entries (with duplicates): 44
+    Cited articles: 26
+
+======================================================================

@@ -1,0 +1,39 @@
+
+
+
+Есть табличка с такими тремя колонками:
+
+final_category	subcategory	count
+'KN', 'NER/RE', "111",
+'KN, GDA, COM', 'NER/RE, PP, PC', "111; 133; 142",
+
+
+Есть латех файл, который сайтит в таком духе: \cite{weng2023largelanguagemodelsneed} или \cite{Fukushima2025-oi, XX_yyy}
+
+
+
+
+То есть, каждая строчка из таблицы может относиться к нескольким кускам текста. И, соответственно, в одном куске текста много соотношений к статьям. Нужно написать такой скрипт, который примет на вход лежащий CSV-файл и TX-файл, распарсит нужные секции. Вот introduction, например, нужно весь, всю секцию. Дальше потом сразу идти к results. Вот. И из нужных субсекций он возьмет и посмотрит, какие статьи за референс... референшиз... ну, короче, процитированы, и пометит, во-первых, сначала вставит в соответствующую... ну да, то есть, получается, первый шаг будет найти, что эта статья процитирована, и вставить в... ну, это одно в столбик, но не просто единичку процитировано, а в какой из частей она процитирована. То есть, я тебе сейчас скину, как соотносятся вот эти короткие коды final category и subcategory с тем, что... ну, с полными их названиями и с теми, какие субсекции к ним относятся. Вот. Соответственно, а потом... или пропуск поставить, если она нигде не процитирована. Ставить, наверное, также через запятую вот, а потом нужно, соответственно, взять субкатегорию, столбик, и с этой субкатегории, ну, то есть, где она была процитирована, и построить такую диаграммку двойную, где, соответственно, спарена, ну, получается, гистограмма по разделам и под разделом количество статей общее, ну, которые там были проаннотированы, и плюс то, те, которые именно были процитированы. То есть, сначала количество из таблицы, а потом те, которые были именно использованы в статье. Вот. Как-то так.
+    
+    
+\section{Introduction} 
+# intro, includes none 
+=========
+\subsection{Results (applications)}
+\subsubsection{Knowledge navigation}
+# KN (knowledge navigation), includes NER/RE и RD (relation discovery)
+\subsubsection{Clinical data analysis}
+# CDA (clinical data analysis), includes CDN (clinical data normalization), CDP (clinical diagnosis prediction), MDP (molecular diagnosis prediction), COP (outcome prediction)
+\subsubsection{Genetic data analysis}
+# GDA (genetic data analysis), includes AVE (analysis of variant effects, GVI (genetic variant interpretation) and PP (phenotype prediction)
+\subsubsection{Interaction with patients and medical professionals}
+# COM (communication), includes MPC (medical professional communication - literature QA and stuff like that) and PC (patient communication, includes counselling and stuff alike).
+\subsubsection{Related research areas}
+# areas, includes none
+\section{Discussion}
+\subsection{LLMs selection guide} AND \subsection{Model Strategies}
+# techniques, includes none
+\subsection{Data and Benchmarks}
+# data, includes none
+\subsection{Biases}
+# biases, includes none

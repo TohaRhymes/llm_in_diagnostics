@@ -1,0 +1,20 @@
+Super category,Article section,Research/application area,Articles in ST2,Articles used in review,Unique articles in supercategory
+,Introduction,review,14,14,
+Results,Knowledge Navigation,"named entity recognition &
+relation extraction",29,15,34
+Results,Knowledge Navigation,relation discovery,7,6,34
+Results,Clinical Data Analysis,clinical data normalization,13,8,43
+Results,Clinical Data Analysis,clinical diagnosis prediction,8,4,43
+Results,Clinical Data Analysis,molecular diagnosis prediction,14,11,43
+Results,Clinical Data Analysis,outcome prediction,9,6,43
+Results,Genetic Data Analysis,analysis of variant effects,16,11,32
+Results,Genetic Data Analysis,genetic variant interpretation,5,5,32
+Results,Genetic Data Analysis,phenotype prediction,12,10,32
+Results,Communication,"medical professional
+communication",20,15,28
+Results,Communication,"patient communication &
+counselling",28,22,28
+Results,Related Research Areas,,44,26,43
+Discussion,,LLMs selection guide & model strategies,15,13,14
+Discussion,,data and benchmarks,6,6,6
+Discussion,,biases and limitations,4,4,4

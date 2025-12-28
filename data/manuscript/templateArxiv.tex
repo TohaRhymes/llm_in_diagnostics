@@ -1,0 +1,670 @@
+\documentclass{article}
+
+
+\usepackage{PRIMEarxiv}
+% \usepackage{tabularx}
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{lipsum}
+\usepackage{fancyhdr}       % header
+\usepackage{graphicx}       % graphics
+\graphicspath{{media/}}     % organize your images and other figures under media/ folder
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{rotating}  % for \rotatebox
+\usepackage{makecell}  % for better cell formatting
+\usepackage{float}
+\usepackage{booktabs,tabularx,ragged2e}
+\newcolumntype{Y}{>{\RaggedRight\arraybackslash}X}
+
+%Header
+\pagestyle{fancy}
+\thispagestyle{empty}
+\rhead{ \textit{ }} 
+
+% Update your Headers here
+\fancyhead[LO]{Changalidis et al.}
+% \fancyhead[RE]{Firstauthor and Secondauthor} % Firstauthor et al. if more than 2 - must use \documentclass[twoside]{article}
+
+
+
+  
+%% Title
+\title{A Systematic Review on the Generative AI Applications in Human Medical Genomics
+%%%% Cite as
+%%%% Update your official citation here when published 
+% \thanks{\textit{\underline{Citation}}: 
+% \textbf{Authors. Title. Pages.... DOI:000000/11111.}} 
+}
+
+\author{
+  Anton Changalidis, Yury Barbitoff, Yulia Nasykhova, Andrey Glotov \\ \\
+  Dpt. of Genomic Medicine\\
+  D.O. Ott Research Institute of Obstetrics, Gynaecology, and Reproductology\\
+  St. Petersburg, Russia \\
+  \texttt{anton@bioinf.me}, \texttt{barbitoff@bioinf.me}, \texttt{anglotov@mail.ru}
+}
+
+
+\begin{document}
+\maketitle
+
+
+\begin{abstract}
+Although traditional statistical techniques and machine learning methods have contributed significantly to genetics and, in particular, inherited disease diagnosis, they often struggle with complex, high-dimensional data, a challenge now addressed by state-of-the-art deep learning models. Large language models (LLMs), based on transformer architectures, have excelled in tasks requiring contextual comprehension of unstructured medical data. This systematic review examines the role of generative AI methods in human medical genomics, focusing on the genetic research and diagnostics of both rare and common diseases. Automated keyword-based search in PubMed, bioRxiv, medRxiv, and arXiv was conducted, targeting studies on LLM applications in diagnostics and education within genetics and removing irrelevant or outdated models. A total of $172$ XXX studies were analyzed, highlighting the prospects of their applications in knowledge navigation, analysis of clinical and genetic data, and interaction with patients and medical professionals. Key findings indicate that while transformer-based models perform well across a diverse range of tasks (such as identification of tentative molecular diagnosis from clinical data or genetic variant interpretation), major challenges persist in integrating multimodal data (genomic sequences, imaging, and clinical records) into unified and clinically robust pipelines, facing limitations in generalizability and practical implementation in clinical settings. This review provides a comprehensive classification and assessment of the current capabilities and limitations of LLMs in transforming hereditary disease diagnostics and supporting genetic education, serving as a guide to navigate this rapidly evolving field, while outlining application use cases, implementation guidance, and forward-looking research directions. 
+%Our aim is not an exhaustive catalogue of every method, but a synthesis of stable patterns and recommendations in a landscape where model versions update on the order of weeks.
+\end{abstract}
+
+
+% keywords can be removed
+\keywords{LLM \and transformers \and genetic diseases \and diagnostics}
+
+
+\section{Introduction}
+\subsection{Machine Learning, Deep Learning, and Language Models}
+
+Machine learning (ML) has become a crucial tool in various fields, from healthcare to research, due to its ability to automate complex tasks and discover patterns in large datasets. Recent reviews highlight the growing impact of ML approaches in biomedical fields, including applications in diagnosing rare diseases and improving clinical outcomes \cite{healthcare10030541, Roman-Naranjo2023-uh}.
+
+Traditional machine learning methods, such as decision trees and support vector machines, have been effective in solving well-defined problems where labeled data is abundant. However, these methods often struggle with high-dimensional data, complex relationships, and tasks that require context-dependent understanding, such as natural language processing (NLP) and genomics. One of the major challenges in traditional ML is handling large datasets with long-range dependencies -- where information far apart in the data sequence needs to be considered together to make accurate predictions. Additionally, it often relies on manual feature extraction and struggles with tasks that require a deeper context or understanding of relationships across the data. 
+
+With the advent of deep learning (DL), many of these limitations were overcome. Deep learning, particularly with the use of neural networks, enables models to learn directly from raw data by automatically discovering useful patterns and representations. Convolutional Neural Networks (CNNs) excel at processing images \cite{Alzubaidi2021}, while Recurrent Neural Networks (RNNs) were initially used for sequential data like text \cite{ALSELWI2024102068}. However, RNNs also encountered difficulties with tasks that involved understanding relationships across long sequences of text due to their inherent sequential processing. This led to the development of transformer-based architectures, which revolutionized NLP and a range of other fields.
+
+The introduction of transformer models in 2017 marked a significant breakthrough in deep learning \cite{vaswani2023attentionneed}. Unlike RNNs, transformers use an attention mechanism that allows the model to focus on different parts of the input data simultaneously, capturing long-range dependencies more effectively. This approach solves the problem of sequential processing and enables the model to understand complex relationships in data, very critical in healthcare and genomics. Transformers are particularly powerful in tasks that require context comprehension, such as text generation, translation, and named entity recognition. Their architecture consists of two main components: the encoder, which processes the input data (e.g., text or any other sequence, such as DNA), and the decoder, which generates the output (e.g., text). These terms refer to different stages of the model’s operation: encoding involves breaking down and analyzing input data to form a representation, while decoding reconstructs or predicts the next part of the sequence based on that representation.
+
+BERT (Bidirectional Encoder Representations from Transformers) and GPT (Generative Pre-trained Transformer) are two of the most widely known transformer-based models, each tailored for different purposes. BERT is an encoder-only model, designed to understand text in both directions (left to right and right to left), which enables it to capture a more complete context for tasks like text classification and entity recognition. This bidirectional understanding allows the model to make more accurate predictions about the meaning of a word or phrase based on its surrounding context \cite{devlin2019bertpretrainingdeepbidirectional}. BERT outputs embeddings for the input, learned numeric vectors that represent a token, span, or the whole sequence; in BERT these embeddings are contextual: the vector for a word depends on its surrounding text, therefore semantically related items lie close in the embedding space and can be compared or fed to downstream classifiers. On the other hand, GPT is a decoder-only model that focuses on generating text, predicting each next word based on the preceding words in a unidirectional fashion. This makes GPT highly effective at tasks, such as text generation, translation, and summarization  \cite{radford2018improving}.
+
+The ability of transformers to handle large datasets and maintain coherence over long sequences has led to the development of large language models (LLMs) - models with millions or billions of parameters \cite{brown2020languagemodelsfewshotlearners}. These models are capable of performing a variety of tasks by leveraging either full training on large datasets or fine-tuning with smaller, task-specific datasets. Fine-tuning allows the model to adapt to new tasks with minimal additional data, making few-shot or one-shot learning techniques possible: in few-shot learning, the model requires only a few labeled examples to perform well, while in one-shot learning, it can generalize from just a single example. This adaptability enables LLMs to be highly efficient across a range of applications, including research, healthcare, and education, without the need for retraining from scratch \cite{Du2024,genes15040421,aronson2024preparingintegrategenerativepretrained, Ueda2024, Laye2024-qg}. 
+
+Vision Transformers (ViTs) have further extended this approach beyond text, applying the transformer architecture to image processing tasks \cite{dosovitskiy2021imageworth16x16words}. By treating image patches like words in a sentence, ViTs can capture dependencies across different parts of an image, making them highly effective in tasks like image classification and segmentation. The versatility of transformers across multiple domains demonstrates their power and adaptability, making them integral to modern AI applications. The versatility of transformers across multiple domains demonstrates their power and adaptability, making them integral to modern AI applications.
+
+Generative Adversarial Networks (GANs) \cite{goodfellow2014generative} complement this landscape as specialized models for data generation, enabling the synthesis of highly realistic images, biomedical data, and even artificial genetic sequences through adversarial training.
+
+Meanwhile, foundation models are trained on vast and diverse datasets and subsequently adapted (fine-tuned) to a wide variety of downstream tasks with minimal task-specific data. They shape the backbone of modern AI, providing general-purpose representations that can be adapted to a variety of specialized tasks. These models excel in transferring learned knowledge to new domains, accelerating advances in research, healthcare, and genomics.
+
+
+Several approaches are commonly used alongside LLMs. The first is retrieval-augmented generation (RAG): before asking the model to answer, we first retrieve relevant passages from a curated corpus/database and pass them in as context. This grounding helps the model stay factual and cite evidence, because it reasons over the provided text rather than trained data \cite{lewis2021retrievalaugmentedgenerationknowledgeintensivenlp}. The second approach involves the use of agents: instead of responding immediately, the model plans the steps, calls on tools (e.g., search engines, databases, calculators, code), inspects the results, and only then produces a response. This enables multi-step, up-to-date answers, but it works best with guardrails (whitelisted tools, sandboxing, logging) \cite{yao2023reactsynergizingreasoningacting, schick2023toolformerlanguagemodelsteach}. We define these briefly here and analyze design patterns and failure modes in the Discussion.
+
+
+\subsection{Overview of human medical genomics}
+\label{sec:intro_dis}
+
+Medical genomics focuses on the application of genome analysis methods for the prevention, diagnosis, and personalized management of human diseases. The methodology, however, may vary depending on the type of disease in question. Thus, for Mendelian disorders, there are two principal tasks that are inherently interconnected: (i) establishing the correct diagnosis of the disease or syndrome affecting the patient; and (ii) finding the exact genetic cause(s) of the condition (reviewed in \cite{10.1093/bib/bbad508}). The same two tasks are of paramount importance in cancer, where establishing the mutational profile of the tumor is essential for planning its treatment and prognosis. Another important area is the evaluation of the individual risk of the disease or specific clinical outcomes. Such prediction may be based on both genetic and environmental factors, and is especially relevant in cancer genomics and genomics of complex disease \cite{Wand2021-dn}. Importantly, genome analysis is frequently not limited to genome sequencing or array-based genotyping, and may involve a rich set of functional genomics tools (e.g., gene expression analysis or epigenomic profiling), particularly in cancer genomics.
+
+
+
+% The former goal involves the analysis of the patient’s phenotype and healthcare data, and, in certain cases, can not be achieved without access to the genetic data. For the latter goal of finding the genetic cause of the disease, data (usually, coming from next-generation sequencing (NGS)) are processed in order to identify the causal genetic variation (a single-nucleotide substitution, a short insertion or deletion, or a more complex alteration of a genome sequence) . Similarly, the search for the genetic cause is greatly aided by the patient’s phenotypic data and/or candidate syndrome information. For complex diseases affected by multiple genetic variants, the data processing step is typically focused on evaluating the overall genetic risk of a condition rather than on the identification of individual causal variants .
+
+
+% CHANGED How it was:
+% A typical diagnostic workflow in medical genetics can be divided into three key stages -- pre-analytical, analytical, and post-analytical -- each of which involves specific tasks and methods. Pre-analytical stage focuses on patient preparation and data organization, including gathering patient history and clinical information, assessing genetic predispositions, as well as biological sample collection and preparation. Additionally, it can include a literature review and knowledge aggregation for the specific field or study. 
+% CHANGED (now 2 paragraphs):
+
+Regardless of the type of disease and methods used, the clinical genomic workflow can be partitioned into three stages, hereafter called pre-analytical, analytical, and post-analytical. This structure is aligned with the ISO 15189:2022 \cite{ISO15189-2022}, which formalizes the same sequence as pre-examination, examination, and post-examination processes. These stages or "phases of laboratory testing" encompass, respectively, test selection and specimen handling; test execution and interpretation; and report preparation, authorization, and delivery to clinicians \cite{Fleming2017DCP3}.
+
+
+In the context of medical genomics, the pre-analytical stage comprises biospecimen collection, organization and preprocessing of clinical data, determination of tentative diagnosis, and selection of methods that will be used for genetic testing.  The next (analytical) stage is the core diagnostic phase, where genomic data are generated, processed, and interpreted. Depending on the data type, their processing and interpretation may involve identification of causal genetic variants, gene expression changes, or other types of molecular biomarkers. As shall be noted later in this review, the collection of genomic data is sometimes omitted, and inference regarding genetic alterations is made on the basis of clinical data or other types of laboratory tests. Finally, the postanalytical phase focuses on communication of the genetic test results to the patient, further patient management and counseling. 
+
+
+% For NGS data, this stage involves calling genomic variants using bioinformatics tools, followed by the annotation of the discovered variants. The latter step frequently requires manual curation and heavily relies on predefined external datasets and resources. Moreover, in addition to genetic data, information from other modalities, such as Magnetic Resonance Imaging (MRI) and computed tomography (CT) scans, histology, and patient photographs, can provide valuable complementary insights into genetic predispositions. 
+
+% Post-analytical stage involves integrating diagnostic results into clinical decisions: subtyping diseases and clustering patients, as well as results aggregation, decision making, and report generation. 
+
+
+While recent reviews have explored the potential of artificial intelligence and, more specifically, transformer models in healthcare and genomics, many have limitations in scope or model specificity. For example, some reviews focus solely on the applications of ChatGPT without a systematic analysis \cite{genes15040421, wang2024bioinformaticsbiomedicalinformaticschatgpt, Jeyaraman2023-dg}, making them outdated or too narrowly focused. Broader reviews, such as those on LLMs in general healthcare applications or in bioinformatics, lack a specific emphasis on genetic diagnostics \cite{Bedi2025-tp, 10.1093/bib/bbae156, 10.1093/bib/bbaf357}. In parallel, a recent systematic review and meta-analysis comparing generative AI with physicians provides aggregate diagnostic accuracy estimates but is not focused on genetics as well \cite{Takita2025}. Some reviews are limited to a specific disease, such as dementia \cite{moya2024addressinggapsearlydementia}, oncology \cite{Webster2023-of, Mudrik2024.08.08.24311699}, schizophrenia \cite{jpm14070744} and often does not have a clear emphasis on transformer-based models\cite{Venkatapathappa2024-kq, dai2024identifyinghealthrisksfamily}, moving a the scope of insights away from LLMs for genetic data analysis. 
+
+The closest topical review broadly covers AI in clinical genetics: it focuses on conventional DL methods and lacks depth on LLMs and transformers \cite{Duong2025-xi}. It is also not systematic or comprehensive, limiting its value as a foundational reference. This systematic review focuses specifically on the application of transformer models and generative AI in the research and diagnosis of hereditary diseases in recent years. To provide a comprehensive perspective, we reviewed models from four key sources: PubMed, bioRxiv, medRxiv, and arXiv, thus including both peer-reviewed studies and the latest preprint models. Since many state-of-the-art models are initially released as open-source in preprint repositories, this approach ensured we did not overlook recent developments. The growing need for efficient data processing and analysis in these domains highlights the potential of LLMs to revolutionize our understanding of genetic data, improve diagnoses, and predict disease outcomes. By exploring the use of LLMs in pre-analytical, analytical, and post-analytical stages, this review aims to provide systematic insights into how these models are transforming diagnostics, automating clinical processes, and supporting personalized medicine. A dedicated section will also assess the performance of models in clinical and research settings, examining both effective and problematic practices and ways to handle them.
+
+% ADDED:
+Given the rapid release cycle of foundation and clinical LLMs, our goal is not to enumerate every method. Instead, we distill robust task patterns and workflows (e.g., extraction, retrieval-augmented generation, agentic pipelines, ViT-based and multimodal fusion), provide implementation guidance, and highlight near-term opportunities and risks for clinical deployment. Our search window covers publications up to 31 January 2025; later works are discussed selectively where they materially affect the argument.
+
+\section{Methods}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.55\textwidth]{imgs/fig1.pdf}
+\caption{Pipeline of search strategy and filtering of the articles.\label{fig1}}
+\end{figure} 
+
+To comprehensively analyze the usage patterns of transformer-based models in genetics and hereditary diseases, a systematic review approach was developed according to the latest PRISMA 2020 guidelines for reporting systematic reviews \cite{Pagen71}, ensuring thorough and transparent coverage of relevant studies. The search strategy was carefully constructed with selected terms relevant to transformer-based models and genetics, and all records were evaluated through a consultative process by two researchers, allowing for in-depth discussions on ambiguous cases, promoting a balanced selection, and reducing potential bias. The full search process is visualized in Figure \ref{fig1}.
+
+
+\subsection{Search strategy}
+
+To systematically review the use of LLMs in genetics and hereditary diseases, an initial broad search for relevant articles in English was conducted across multiple major scientific databases. A custom Python script was developed to automate the collection of articles from PubMed, bioRxiv, medRxiv, and arXiv (see \textit{Data Availability} for access to the code repository). The search criteria focused on articles from 2023, 2024, and the beginning of 2025 (January) to ensure the inclusion of the most up-to-date research in this rapidly evolving field (the dataset was downloaded on 31-01-2025). Articles from medRxiv and bioRxiv were accessed through the API available at \url{https://api.biorxiv.org/} (accessed on 31-01-2025), while arXiv data was retrieved using the Python wrapper \url{https://github.com/lukasschwab/arxiv.py} for the arXiv API (accessed on 31-01-2025). PubMed articles were accessed via the Biopython package for the PubMed API \cite{cock2009biopython}, available at \url{https://biopython.org/docs/1.76/api/Bio.Entrez.html} (accessed on 31-01-2025). This process yielded an initial dataset of 57,558 articles, forming the basis for further analysis.
+
+The query terms were divided into two groups: one related to genetics and medicine, and the other related to transformer models and LLMs. Relevant articles were required to contain at least one term from each list in their title and/or abstract:
+
+\begin{itemize}
+    \item genomic, genetic, inherited, hereditary, heredity, inheritance, heritability, disease subtype, NGS, next-generation sequencing, next generation sequencing, genome sequencing, phenotype description, variant interpretation, complex trait, medicine, medical, diagnosis, diagnostic, clinical, clinical decision, syndrome.
+    \item LLM, large language model, NLP, natural language processing, GPT, chatGPT, transformer, BERT, Bidirectional Encoder Representation, RAG, retrieval-augmented generation, retrieval augmented generation, generative AI, AI assistant, prompt, chatbot, prompt engineering, attention mechanism, chain-of-thought, chain of thought.
+\end{itemize}
+
+
+
+\subsection{Inclusion and Exclusion Criteria}
+
+After retrieving articles, several steps of filtering and exclusion were conducted. The first step in data processing involved automatically removing duplicate entries and cleaning the data, reducing the dataset to $51,613$ articles. This was done using text processing algorithms to detect similarities in titles and abstracts. Figure \ref{fig2}A illustrates the contribution of each database to the final dataset, with a substantial number of preprints included. Although preprints offer access to the latest research, they lack peer review and may contain unverified results, requiring careful analysis.
+
+
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{imgs/fig2.pdf}
+\caption{Distribution of articles by source: (A) after automatic deduplication and merging (51,613 records in total); (B) after additional automated filtering for relevance to clinical diagnostics (576 records in total); (C) final set used in this review (articles were manually curated, some of them were merged) (187 records in total).
+\label{fig2}}
+\end{figure} 
+
+A primary semantic analysis was performed to assess the relevance of each article to the research objectives. To identify domain-specific terminology during screening and curation, TF-IDF (Term Frequency-Inverse Document Frequency) scores were calculated for all words and phrases found in article titles and abstracts (this was done at three levels: for the full corpus, at the selected set of articles, and with additional words filtering -- full methods, detailed results, and visualization are in Appendix~\ref{sec:tfidf_methods} and Supplementary Figures~\ref{SF1}–\ref{fig3:tfidf_source_filtered}). This helped highlight key terms related to genetics, hereditary diseases, and LLMs. The identified phrases were grouped into three semantic categories:
+
+\begin{itemize}
+    \item LLM-related terms: LLM, large language model, NLP, natural language processing, GPT, chatGPT, transformer, BERT, Bidirectional Encoder Representation, RAG, augmented generation, generative AI, AI assistant, prompt engineering, chatbot, prompt engineering, attention mechanism, chain-of-thought, chain of thought.
+    \item Clinical terms: electronic health record, ehr, clinical, case report, cds, intensive care unit, medical, syndrome, phenotype, complex trait.
+    \item Genetics-related terms: inherit, heredit, heritability, gwas, genome-wide, genome wide, association stud, snp, single nucleotide, genetic, variant interpretation, genomic varia, human gen, NGS, generation sequencing.
+\end{itemize}
+
+These key phrases were used to filter the articles based on the presence of at least one term from each group. To ensure coverage of morphologically derived forms (e.g., "inherited", "genomics", "associations"), the terms above were defined using stemmed substrings and matched via regular expressions. Filtering required that each article contain at least one match from each of the three categories.
+
+To avoid false positives caused by accidental substring matches in unrelated words (e.g., "cove\textbf{rag}" or "encou\textbf{rag}" falsely matching "rag"), an empirically derived exclusion list was applied. This list was constructed by manually reviewing articles irrelevant to the study focus and identifying recurring misleading terms. This list included the following terms or common letter combinations: \textit{tragic, fragment, coverag, encourag, ungs, angs, ongs, ings, eragrostis, smallmouth, fragile, angptl, intragenic, fragment, hallmark, uvrag, leverag, storag, averag, coverag, encourag, forage, liraglutid}. This filtering strategy significantly improved the precision of semantic classification by excluding structurally similar but contextually irrelevant terms.
+
+Additionally, a manual verification step was conducted to identify and remove duplicate entries that were not detected automatically. In several cases, articles had slightly different titles or abstracts but were authored by the same group and described the same study. Based on this content-level similarity and author overlap, duplicates were removed, reducing the dataset from 571 (XXX) to 550 (XXX) articles for subsequent analysis. The complete list of included articles is provided in Supplementary Table 1. As previously noted, this step, as well as all subsequent ones, were conducted jointly by two researchers, allowing for careful discussion of ambiguous cases and minimizing potential bias.
+
+After deduplication, articles were manually divided into three classes, based on their relevance to the topic. In order to be considered fully relevant (XXX articles), the articles had to meet the following criteria: (i) involve development or evaluation of transformer-based or similar models; and (ii) focus on the extraction, processing, or prediction of genetic information or phenotypic information directly linked to inherited disease (e.g., recognition of rare disease symptoms). XXX articles met only one of these criteria (i.e., described non-transformer models or dealt with adjacent fields of research not directly linked to clinical genetic testing) and therefore were classified as partially relevant. All other articles (XXX) were considered irrelevant and were excluded.
+
+In addition to automated filtering, XXX manually selected articles of partial (XXX) and high (XXX) relevance were included in the final dataset, bringing the total to XXX articles (Supplementary Table 2): XXX partially relevant articles and XXX fully relevant articles. Additional articles were sourced through references from the initially selected studies, as well as through further targeted filtering and searches across the originally extracted dataset. 
+
+At this stage, a thorough investigation of the selected articles was conducted. All highly relevant articles, as well as some of the partially relevant ones, were included in the analysis. From the latter category, only those entries were chosen that provided good examples of deep learning methods used in diagnostics, even if not specifically focused on LLMs or transformers. During the review process, each article was assessed based on its relevance to specific sections (see \textit{Results}). Additionally, insights into best and worst practices of transformer usage are outlined in the discussion section. Since these areas encompass a broad list of tasks, they have been divided into specific applications, and itemized (see the relevant sections and Figure~\ref{fig4}).
+
+
+% \begin{table}[ht]
+% \centering
+% \begin{tabular}{l llr}
+% \toprule
+% & \textbf{Article section} & \textbf{Research/application area} & \textbf{Articles count} \\
+% \midrule
+
+% % INTRODUCTION
+% \multirow{1}{*}{} 
+%     & Introduction  
+%         & review                                               & 12 \\
+% \midrule
+
+% % DIAGNOSTICS: spans 8 rows (2+3+3)
+% \multirow{8}{*}{\rotatebox{90}{\parbox{2.2cm}{\centering Diagnostics}}}
+%     & \multirow{2}{*}{Pre-Analytical stage} 
+%         & knowledge navigation \& literature review            & 40 \\
+%     &   & risk stratification                                  & 11 \\
+%     \cmidrule{2-4}
+%     & \multirow{3}{*}{Analytical stage}     
+%         & medical imaging analysis                             & 24 \\
+%     &   & analysis of variant effects                          & 23 \\
+%     &   & clinical variant interpretation                      & 9  \\
+%     \cmidrule{2-4}
+%     & \multirow{3}{*}{Post-Analytical stage}
+%         & patient clustering \& subtyping                 & 7  \\
+%     &   & data \& results aggregation                          & 8  \\
+%     &   & clinical report generation \& decision support       & 15 \\
+% \midrule
+
+% % EDUCATION
+% \multirow{1}{*}{} 
+%     & Education       
+%         & education                                            & 9  \\
+% \midrule
+
+% % DISCUSSION
+% \multirow{1}{*}{} 
+%     & Discussion      
+%         & specificity of LLM usage, other medical topics       & 49 \\
+% \bottomrule
+% \end{tabular}
+% \caption{Distribution of article usage across sections and application areas. Articles may appear in multiple categories.}
+% \label{tab_bar}
+% \end{table}
+
+ 
+In total, of the $XXX$ selected studies, $XXX$ were used ($XXX$ relevant and $XXX$ partially relevant). 
+Among these, $XXX$ focused on diagnostics and $XXX$ were used as examples of practices discussed in the review 
+(with some articles used in multiple sections). 
+Furthermore, $XXX$ articles were incorporated in the introduction as examples of existing systematic research with a similar topic (see Figures~\ref{fig1},\ref{fig4}B).
+
+
+
+\subsection{Risk of Bias}
+ A large proportion of the selected articles came from preprint databases, such as arXiv, bioRxiv, and medRxiv, meaning they had not yet undergone peer review. This could introduce some bias, as these studies have not been validated by the scientific community. However, given the fast-paced nature of LLM development, many of the most cutting-edge techniques are being developed faster than the peer-review process allows. Consequently, it was deemed essential to include such articles to capture the most current advancements.
+
+Additionally, while this review focuses on the application of LLMs in the specific domain of genetics and hereditary diseases, there may be general-purpose models or methods from broader AI fields that were not included in this focused analysis. These models could still provide valuable insights or advancements applicable to this domain, although they fall outside the scope of this particular review.
+
+
+\subsection{Semantic landscape of the literature (TF-IDF)}
+
+
+TF-IDF profiling showed a consistent progression from generic to domain-specific themes (Supplementary Figure~\ref{SF1}). In the full corpus ($51{,}613$ articles; SF~\ref{SF1}~A), generic phrases such as "language models", "large language", and "artificial intelligence" dominated, confirming broad field coverage prior to curation. The curated set (187 (XXX) articles ; SF~\ref{SF1}~B) preserved these anchors and surfaced domain cues (e.g., "precision medicine"): evidence that selection retained the core landscape. After removing generic AI/ML phrases (SF~\ref{SF1}~C, SF~\ref{fig3:tfidf_source_filtered}), specific trends emerged, including "precision medicine", "gene expression", "open source", and "genetic testing", alongside disease-focused ("breast cancer", "alzheimer disease"), resource-oriented ("human phenotype ontology"), and technique-oriented ("attention mechanism", "single cell") terms.
+
+Source comparisons (Supplementary Figure~\ref{SF2}) further clarified complementarity. Before filtering, PubMed ($n=125$ XXX) and preprints ($n=62$ XXX) shared $57\%$ (XXX) of top phrases ($17/30$ XXX), indicating strong consensus on core topics . After filtering, overlap dropped to $27\%$ XXX ($8/30$ XXX), revealing distinct emphases (Supplementary Figure~\ref{fig3:tfidf_source_filtered}). 
+
+PubMed leaned clinical and translational ("precision medicine", "genetic testing"; established disease terms), whereas preprints highlighted emerging computational motifs ("gene expression", "open source", "attention mechanism") and method-forward phrasing. Many key terms from both technical and biological domains ranked highly in preprints but were absent from PubMed, supporting our dual-source strategy and underscoring that inclusion of preprints offers a more comprehensive view of the field.
+
+\section{Results}
+
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{imgs/fig4.pdf}
+\caption{A diagram showing the applications of LLMs in the research and diagnosis of human genetic diseases.
+A diagram showing the applications of LLMs across stages of the genetic diagnostics workflow.
+(A) Pre-analytical, analytical, and post-analytical phases of clinical genetics, illustrating how LLMs support test selection, variant identification, and decision-making.
+(B) To the left: four major functional domains of LLM use: knowledge navigation, clinical data analysis, genetic data analysis, and communication with clinicians or patients. To the right: distribution of the final set of reviewed articles with corresponding subcategories highlighted.
+\label{fig4}}
+\end{figure} 
+
+% We now examine each phase of the diagnostic pipeline, as introduced in Section~\ref{sec:intro_dis} and illustrated in Figure~\ref{fig4} and Table~\ref{tab_bar}. In this systematic review, a total of 51 articles focused on the pre-analytical stage. Within this phase, 39 articles addressed knowledge navigation and literature review (extraction of structured information, creation of new one, using research texts and electronic health records (EHRs)), and 12 examined risk stratification (use of genetic or phenotypic data to assess genetic predispositions or identify high-risk patient groups). The analytical stage received the most attention, with 53 studies in total. These were distributed across three major tasks: 24 articles for medical imaging analysis (detecting pathological features in visual data), 23 articles for analysis of variant effects (sequence analysis, predicting molecular or phenotypic consequences of variants), and 9 articles for clinical variant interpretation (identifying, classifying and prioritizing causal variants using multimodal inputs). The post-analytical phase was the focus of 29 articles. These included 7 studies on patient clustering and subtyping (based on analytical stage data), 8 on data and results aggregation (data interpretation for prediction and recommendation), and 15 on clinical report generation and decision support (providing explainable outputs to physicians or patients). This distribution highlights the increasing integration of LLMs across all stages of the diagnostic workflow, with an emphasis on the pre-analytical and analytical phases. However, they remain supportive tools in decision-making, with human expertise still essential.
+
+Our systematic review identified a total of XXX studies that report application of generative AI methods for a wide variety of tasks within the scope of human medical genomics, After careful curation, we have split these studies into four main categories depending on the study design, methods and data types employed: (i) knowledge navigation (XXX articles); (ii) clinical data analysis (XXX articles); (iii) genetic data analysis (XXX articles); and (iv) communication with patients and medical professionals (XXX articles). Each category was then subdivided into several subcategories corresponding to major tasks addressed by respective generative AI methods and models (Figure \ref{fig4}B). In the following sections, we will summarize articles from each category, highlighting the most notable studies and discussing prospects for further method development in each area. 
+
+
+
+\subsection{Knowledge Navigation}
+
+Most of the studies in the knowledge navigation category dealt with the extraction of structured information from published sources or biomedical databases. In many cases, this goal is achieved through named entity recognition (NER) and relation extraction (RE),  and is primarily focused on the extraction of gene-disease or variant-disease relationships from published literature (e.g., \cite{Huang2024-vl}). This task is exceptionally important given the vast amount of such information available in the literature, which is, in many cases, not properly reflected in major databases such as Online Mendelian Inheritance in Man (OMIM) \cite{Hamosh2005-va} or NCBI ClinVar \cite{10.1093/nar/gkx1153}. Data extracted from literature sources are crucial for clinical geneticists and can be used at all stages of the genetic testing workflow. Thus, knowledge about gene-disease associations may aid in the selection of appropriate genetic testing methods and inform interpretation of sequencing results. Complementing these trends, training very small, task-specific encoders is emerging as an accuracy-preserving and controllable alternative to general LLMs, highlighting the promise of small, fine-tunable models for biomedical tasks while reducing hallucination risk \cite{saha2025reconstructingbiologicalpathwaysapplying}. At the same time, there is a rising trend of employing decoder-based LLMs (e.g., GPT-3.5/4, PhenoGPT, GP-GPT) for entity-level tasks, which, despite convenient one/few-shot use (providing one to several examples right in the query) and promising results in some studies, may be suboptimal for extraction tasks due to architectural mismatches \cite{murphy2024.06.10.24308475, lyu2024gpgptlargelanguagemodel}. This trend invites further research, as will be described in the Discussion.
+
+Beyond the extraction of simple relations, some studies involved a more sophisticated design. For example, some studies focused on complex multi-entity relationships (e.g., DUVEL (Detection of Unique Variant Ensembles in Literature) \cite{10.1093/database/baae039}). In other studies, the extraction of gene-disease associations was complemented with curated resources and interpretable extraction frameworks (e.g., GPAD (Gene-Phenotype Association Discovery), RelCurator \cite{rahit2024, lee2023-pz}). Several works combined knowledge navigation tasks with question answering, developing specialized tools and models for interactive communication with researchers or clinicians. Examples of such Q\&A systems include PubTator 3.0 \cite{10.1093/nar/gkae235} and BioMedLM \cite{bolton2024biomedlm27bparameterlanguage}, and demonstrate improved answer factuality and superior performance compared to general-purpose LLMs. A number of specialized systems, such as ClinVar-BERT, AutoPM3, and VarChat, are optimized specifically for variant interpretation, providing variant impact summaries \cite{De_Paoli2024-jy} or extracting pathogenicity evidence for genetic variants from published sources  \cite{Li2024-ul, Li2024.10.29.621006}. 
+
+Aside from the XXX(26) studies involving information extraction, a separate subcategory (comprising XXX(6) studies) focused on the prediction of novel gene-disease relationships. These studies utilized both models specifically trained for solving the task of causal link prediction (e.g., end-to-end disease-gene association prediction model with parallel graph transformer network (DGP-PGTN) \cite{10.1093/bib/bbad118} or LitGene \cite{Jararweh2024.08.07.606674}) as well as interactive large language models (e.g., Med-PaLM 2 \cite{Tu2023.11.09.566468}). Another notable work described the application of transformer-based models to the identification of causal genes at GWAS loci \cite{Shringarpure2024.05.30.24308179}. While limited in number, these studies illustrate the potential of generative AI methods for hypothesis generation -- a goal which, if successfully met, can greatly advance biomedical research in various fields beyond medical genetics. 
+
+\subsection{Clinical Data Analysis}
+
+This category was the largest in our analysis and comprised diverse efforts involving the analysis of electronic health records (EHRs), clinical notes, and results of non-genetic laboratory testing with a goal of phenotypic data organization, providing tentative diagnosis or disease subtypes. Similarly to literature review, these types of analysis are more commonly performed prior to or during genetic testing with a goal of selecting the appropriate testing strategy and enhancing interpretation. However, as shall be described below, there are several attempts to circumvent the need for genetic testing by providing information on actionable genetic markers based solely on other types of data.
+
+The first subcategory of studies focused on extraction and normalization of clinical information from EHRs. Methods employed for this task largely overlap with those used for extraction of information from scientific literature. In purview of clinical data processing, however, the main emphasis is laid onto the extraction and normalization of phenotypic information of the patient, typically by mapping it onto Human Phenotype Ontology (HPO) terms \cite{Gargano2024-uh} using both encoder- and decoder-based models \cite{YANG2024100887, albayrak2025100409, murphy2024.06.10.24308475, 10.1093/database/baae103, 10.3389/fdgth.2025.1495040, Weissenbacher2024-gm}. 
+
+Beyond normalization of phenotype descriptors, a large number of models are built for suggesting genetic diagnosis on the basis of the patient’s phenotypic features using textual (EHRs) or visual information (e.g., portrait photos or data from other imaging methods). In the former category, generative LLMs such as GPT-3.5, GPT-4, and Gemini (which are obsolete at the moment) have been applied to suggest candidate diagnoses in autoinflammatory and neurogenetic disorders, or predict cancer predisposition genes from textual EHR summaries \cite{PILLAI2023100213, genes16010029, Sultan2023-eu}. Models with visual data inputs are also designed to predict both tentative diagnoses and causal genetic alterations. For example, an older CNN-based model called DeepGestalt has proven its efficacy in syndromic features identification \cite{Gurovich2019}, with its newer version, GestaltMML (multimodal Transformers over facial photos, clinical notes, and metadata), having improved accuracy due to its multimodal design \cite{wu2024gestaltmmlenhancingraregenetic}. In oncology, a large number of models have been built to predict the mutational profile of the tumor based on histopathology data (whole slide images, WSIs). Examples of such efforts include prediction of gene mutation status \cite{GUO2023102189, huang2024predictinggeneticmutationslide, Sun2024, Singh2024-ut, Akram2024-zn, 10605027} or aggregate genomic features such as tumor mutational burden \cite{WANG2025103372}. A peculiar feature of these approaches is that they are designed as a substitute for, rather than being complementary to, costly genetic testing.
+
+Finally, a series of studies focused on the prediction of various clinical outcomes in patients using a mixture of genetic and non-genetic information. Notable examples of such studies include stratification of survival risk in breast cancer patients \cite{Mondol_2024} or genetics-informed subtyping of Alzheimer’s disease patients \cite{jpm14040421}.
+
+\subsection{Genetic Data Analysis}
+
+While bioinformatic analysis of genomic data is commonly considered to be the most complicated step of a medical genomics workflow, only a minority of studies identified by our review directly employed generative AI for genetic variation analysis. The respective methods were focused on three major tasks: (i) phenotype-agnostic prediction of functional impact of genetic variants; (ii) prioritization of genetic variants in the context of NGS results interpretation; and (iii) aggregation of genetic variation data for prediction of the patient’s phenotype (typically, in connection with complex disease).
+
+In the first subcategory, much of the promise of generative AI is connected with the development of domain-specific models (foundation models) to understand the language of biological molecules (e.g., DNA or proteins). While biological sequences differ from natural language due to a lack of easily identifiable “words”, AI methods have already demonstrated their extraordinary capabilities in solving fundamental tasks. Nobel prize-winning AlphaFold \cite{Jumper2021} is the most notable example of such models that demonstrated groundbreaking performance in protein folding. A number of well-established methods have been developed on top of the protein language model employed by AlphaFold, including AlphaMissense, a tool that has become a de facto gold standard in the evaluation of pathogenicity of amino acid substitutions \cite{doi:10.1126/science.adg7492}. Beyond prediction of impact for amino acid substitutions in proteins, a range of models for working with DNA sequence have been proposed, with some showing promising results in tasks related to genetic variation analysis (e.g., prediction of splice sites, epigenetic marks, enhancer sequence, promoter sequence, enhancer activity, chromatin profile, and others) \cite{Ying2024-vf, Dalla-Torre2025, li2025bmfmdnasnpawarednafoundation, Machado_Reyes2024.11.02.24316653}. These models are already trained to understand the context of a sequence, and their representations can be fine-tuned for a diverse range of downstream tasks. In addition, models trained for specific tasks also exist -- their advantage is that they can be much smaller and therefore require fewer computational resources. In a notable study, transformers have advanced splice site prediction for identifying disease-relevant splice variants \cite{Jonsson2024}. Transformer-based variant annotation is not limited to point mutations - for instance, a tool called PhenoSV applies attention-based modeling to structural variants (SVs) to capture how both non-coding and coding structural variants affect gene function \cite{Xu2023-tq}.
+
+Another important and particularly challenging area of bioinformatic analysis of genome sequencing data is the identification of causal genetic variants among millions present in each individual genome \cite{10.1093/bib/bbad508}. In this field, a variety of generative AI methods have also shown their exceptional performance. For example, authors of the Mendelian Approach to Variant Effect pRedICtion (MAVERICK) tool report ranking the causal variant among the top five variants in over 95\% of the cases \cite{Danzi2023}. Other tools, such as Genetic Transformer (GeneT), also report high performance in variant prioritization \cite{Liang2024.07.18.24310666}, and benchmarking studies confirm substantial improvement of clinical variant classification from using state-of-the-art models and other techniques, such as fine-tuning and RAG (for details see discussion), including LLMs \cite{boulaimen2024integratinglargelanguagemodels, 10.1093/bioadv/vbaf019}.
+
+Finally, a set of generative AI-based methods has been developed to enhance polygenic risk prediction in complex diseases. A recurrent strategy employed in several studies is the application of LLMs and other models for the construction of informative predictive features (such as epigenetic markers) based on the individual genotypes (e.g., Epi-PRS  \cite{Zeng2024.10.04.24314860} or epiBrainLLM \cite{Liu2024.10.03.24314824}). Other studies attempt to use transformer architectures for modeling epistatic interactions between genes \cite{Lee2024.10.23.619940} or for simple classification of patients into subtypes based on their genotype, as exemplified by a study in Parkinson’s disease  \cite{9926815}.
+
+\subsection{Interaction with Patients and Medical Professionals}
+
+The last category of generative AI applications in medical genetics leverages the unique capacity of LLMs to communicate with the user in natural language. Such communication typically involves medical question answering, and can assist both medical professionals and patients. As mentioned in previous sections, interactive chatbots have been developed and used for various tasks mentioned earlier in this review, including knowledge navigation, clinical data analysis, and genetic variant interpretation \cite{Quidwai2024.03.14.24304293, 10.1093/bioinformatics/btae500, De_Paoli2024-jy, Sultan2023-eu, genes16010029, Lukac2023, https://doi.org/10.1002/2056-4538.70009, Hamilton2024-cw}. However, the use of generative AI for interaction with researchers, doctors, and patients is not limited to Q\&A tasks. In this subsection, we will briefly describe other notable works involving communication with patients or medical professionals.
+
+In the realm of interaction with medical professionals, one study has reported the use of generative AI to address privacy challenges of using real patient images in genetics education. A study on Kabuki and Noonan syndromes found that AI-generated facial images, created using StyleGAN \cite{karras2019stylebasedgeneratorarchitecturegenerative} methods, were nearly as effective as real photos in training pediatric residents to recognize phenotypic features \cite{Waikel2024-na}. While real images were rated slightly more helpful, synthetic ones notably increased diagnostic confidence and reduced uncertainty.
+
+Some works are focused on the development of interactive assistants for the interpretation of genetic test results. One notable example is the study by Yang et al. \cite{10.1093/database/baae102} who have constructed an LLM module for textual summaries of submodules of a knowledge graph. Another notable case is the Just-DNA-seq platform that integrates a custom GPT model called GeneticsGenie to facilitate the interpretation of genetic test results by users with no genetics background \cite{anton2024justdnaseqopensourcepersonalgenomics}. In another effort, an AI assistant was developed for the interpretation of pharmacogenomic test results \cite{Murugan2024-lo}. Besides interpretation of genetic testing results, a range of studies have explored the application of LLMs in genetics question answering \cite{Keat2025-lv, McGrath2024-zx}, counseling \cite{Fukushima2025-oi, PATEL2024115}, and education \cite{Waikel2024-na, Walton2023.10.25.564074}. It has to be noted, however, that studies reveal variability in accuracy, especially in nuanced topics, such as inheritance patterns or ethical subtleties of genetic risk communication \cite{McGrath2024-zx, Walton2023.10.25.564074}. Besides, models still risk hallucination and outdated references, highlighting the need for oversight and continual retraining \cite{Walton2023.10.25.564074}.
+
+Taken together, all of the aforementioned applications are well aligned with general trends in the field of generative AI methods, which are increasingly being used as personal assistants in various fields. However, a range of technical and ethical concerns still raise doubts regarding the implementation of LLMs in clinical genetics in the near future (see Discussion for a more in-depth analysis of the outstanding issues). 
+
+
+\subsection{Related Research Areas}
+
+Although this review focuses on the applications of generative AI models in human genetics and diagnostics, several adjacent research areas, while not directly related to human genome analysis, offer valuable insights and transferable lessons. These applications were excluded from the main focus due to limited direct relevance; however, they highlight the variety of possible usage across biological and medical domains and may inspire future applications in human genetic research.
+
+Studies applying LLMs to microbial genomes have demonstrated the potential of language models to encode meaningful representations of whole genomes. For example, models trained on bacterial or fungal species can predict traits such as antibiotic resistance or habitat specificity \cite{Naidenov2024.03.18.585642, li2025genometransformergeneinteraction, Weinstock2024.12.12.628183}. While distinct from human genetics, these works show how transformer-based models can capture population structure and gene interactions in complex biological systems.
+
+Transformer models have also been applied to protein sequences for predicting gene ontology terms and functional annotations \cite{tamir2024protgotransformerbasedfusion}. These studies operate in the space of proteomics, yet demonstrate modeling principles that could be extended to human gene function prediction or variant interpretation.
+
+A substantial body of work with ViTs focuses on cancer imaging, particularly for tasks such as tumor segmentation, subtype classification, and spatial analysis from whole-slide images \cite{Li2023-zk, Pizurica2024, Hu2024-qo, 10.3389/fninf.2024.1444650, jpm14101022, YANG2024108400}. While not always grounded in genomic data, these tasks intersect with genetic diagnostics when molecular subtypes play a role in treatment stratification.
+
+Epigenetic regulation and cross-species prediction of gene expression using sequential and imaging data represent another promising direction \cite{Weinstock2024.12.12.628183, RAMPRASAD2024100347, Pizurica2024}. These studies explore how attention-based models can generalize across evolutionary distances, enabling predictions in under-characterized organisms and informing functional annotation pipelines.
+
+LLMs are being increasingly integrated into gene editing workflows: from automating guide RNA design and protocol generation (e.g., CRISPR-GPT) to predicting cellular responses to perturbations at single-cell resolution (e.g., scLAMBDA) \cite{huang2024crisprgptllmagentautomated, Wang2024.12.04.626878}. Together, these applications illustrate how transformer models support both the interpretation and manipulation of gene function in human genetics.
+
+Transformer models have also been used to investigate the role of genetic support in the success or failure of clinical trials \cite{Razuvayevskaya2024}. While not directly diagnostic, such applications emphasize the growing role of human genetic evidence in pharmaceutical development and clinical decision-making.
+
+Taken together, these diverse research directions extend the scope of transformer-based models beyond traditional genetics. By leveraging techniques and datasets from related fields, such as microbial biology, cancer diagnostics, and synthetic biology, future work in human genetics may benefit from models and insights developed in adjacent domains.
+
+\section{Discussion}
+
+%% HOW IT WAS:
+% As transformer models and, more specifically, LLMs (e.g. GPT, BERT) are increasingly integrated into specialized fields such as genetics, it is essential to evaluate their strengths and limitations. This research systematically reviewed the application of LLMs and generative AI models in genetic diagnostics, incorporating resources from PubMed, bioRxiv, medRxiv, and arXiv to ensure both peer-reviewed depth and inclusion of the latest model developments.
+
+% In this section, we outline additional areas of genetics where generative AI show strong potential but were beyond the scope of this review. We also highlight key developments needed to ensure the reliability and trustworthiness of LLM applications, and discuss emerging trends and techniques that may enhance their effectiveness.
+
+%% CHANGED:
+As transformer models, more specifically, encoder-only (e.g., BERT family), decoder-only (e.g., GPT family), and encoder-decoder (e.g., T5 \cite{raffel2023exploringlimitstransferlearning} -- a flexible text-to-text transformer architecture not originally trained for biomedical tasks, but widely adapted for biomedical NLP \cite{li2024largelanguagemodelsbiomedical, lehman2023needclinicallanguagemodels}), are increasingly integrated into specialized fields such as genetics, it is essential to evaluate their strengths and limitations. This research systematically reviewed the application of these models in genetic diagnostics, incorporating resources from PubMed, bioRxiv, medRxiv, and arXiv to ensure both peer-reviewed depth and inclusion of the latest model developments, focusing on hereditary disease diagnostics while retaining adjacent work for context.
+
+In this section, we aim to provide a guideline for selecting the models and strategies for researchers willing to integrate generative AI tools in their workflows. We list and discuss the main benefits and limitations of different models and techniques, and highlight key developments needed to ensure the reliability and trustworthiness of LLM applications. We also touch upon  emerging trends and techniques that may enhance their effectiveness. 
+
+
+
+%% CHANGED (this section was added):
+% BigBird -- need to reference earlier
+\subsection{Model selection guide}
+
+In this subsection, we summarizes major families of generative AI models across a range of data types they process (modalities), including text, sequence, images, and their combinations (Table~\ref{tab:model-landscape}). We try to link the models to respective tasks and examples reviewed in the previous section.
+
+% \begin{table}[b]
+\begin{table}[tbhp]
+\centering
+\caption{Architectures and capabilities map for genetics and adjacent tasks.}
+\label{tab:model-landscape}
+\setlength{\tabcolsep}{3pt}            
+\renewcommand{\arraystretch}{1.12}     
+\footnotesize                          % при желании: \scriptsize
+\begin{tabularx}{\textwidth}{YYYYY}
+\toprule
+\textbf{Family} & \textbf{Modality (examples)} & \textbf{Proper application} & \textbf{Limitations / cautions} & \textbf{Examples } \\
+\midrule
+Encoder-only & Text (clinical notes, biomedical literature) & NER/RE, mapping of terms to standardized vocabularies (ontologies) & Long documents may truncate, weak for free-form generation & ClinVar-BERT \cite{Li2024-ul}, PathoBERT \cite{10.1093/bioinformatics/btae185}, Big Bird \cite{zaheer2020bigbird} \\
+
+Decoder-only & Text (clinical narratives, reports, instructions) & Drafting reports, Q\&A, guideline summarization, next event prediction & Hallucinations without retrieval, version drift & GPT~\cite{radford2018improving}, ChatGPT~\cite{brown2020languagemodelsfewshotlearners}, GeneGPT~\cite{10.1093/bioinformatics/btae075}, Comet~\cite{waxler2025generativemedicaleventmodels}  \\
+
+Encoder-decoder & Text (summaries, structured templates) & Summarization, controlled generation (using templates) & All limitations of encoder- and decoder-only & T5~\cite{raffel2023exploringlimitstransferlearning}, TSCA-Net~\cite{FU2024107938} \\
+
+Foundation models & Biological sequences (DNA, RNA, protein) & Tasks involving sequence analysis (e.g., variant and regulatory effect prediction, epigenomic signal transfer) & Miss long-range effects, less reliable for rare or cross-species data; require validation & GENA-LM~\cite{Fishman2023.06.12.544594}, Nucleotide Transformer~\cite{RAMPRASAD2024100347}, MethylGPT~\cite{Ying2024-vf}, AlphaMissense~\cite{doi:10.1126/science.adg7492}, MIPPI~\cite{Liu2023-vl}, CellFM~\cite{Zeng2025}, Enformer~\cite{RAMPRASAD2024100347} \\
+
+ViT, Hybrid CNN-Transformer & Images (MRI, WSI, facial phenotypes) & Predictions based on imaging data (e.g., disease subtyping, prediction of genetic alterations) & Sensitive to data quality and bias, require expert annotation, limited by ethical constraints & CroMAM~\cite{10605027}, BPGT~\cite{huang2024predictinggeneticmutationslide}, PromptBio~\cite{zhang2024promptingslideimagebased}, ChromTR~\cite{Xia2024}, Tokensome~\cite{zhang2024tokensomegeneticvisionlanguagegpt}, GestaltMML~\cite{wu2024gestaltmmlenhancingraregenetic}  \\
+
+Multimodal models & Multimodal (imaging, genomics, text, tabular data) & Integration of diverse data types & Modality imbalance; missing-modality handling & MGI~\cite{zhou2024mgimultimodalcontrastivepretraining}, BioFusionNet~\cite{Mondol_2024}, Genetic InfoMax~\cite{xie2023geneticinfomaxexploringmutual} \\
+
+
+\bottomrule
+\end{tabularx}
+\end{table}
+
+
+Models based on transformer architecture (including encoder-only, decoder-only, and encoder–decoder variants) can be used to address a wide range of tasks involving biomedical text processing. Thus, encoder-style models (e.g., BioBERT, ClinVar-BERT, PathoBERT, Big Bird \cite{zaheer2020bigbird}) remain the most reliable for structured extraction and annotation (NER/RE, HPO normalization), and for structuring clinical data or texts. Decoder LLMs (including both general-purpose, such as ChatGPT, or specialized, such as GeneGPT) add value for generative tasks, such as clinician-facing Q\&A, report drafting, and exploratory hypothesis generation, but typically require retrieval and tool calling for robust, auditable performance; mixed systems (RAG, agents -- described in the next section) reduce hallucinations when grounded in curated resources and databases. Additionally, decoder-only models can be used for next-event prediction (e.g., Comet \cite{waxler2025generativemedicaleventmodels}). Lastly, full encoder-decoder (seq2seq) architectures are useful for controlled, template-constrained generation of text (e.g., highly structured summaries or other tasks). Some studies use decoder-only models (e.g., ChatGPT) where a transformer encoder would likely perform better for extraction-focused workloads \cite{Labbe2023-lj, Shringarpure2024.05.30.24308179, hier2024highthroughputphenotypingclinicaltext}. It is important to note that choosing the right architecture is critical. Although early comparisons often focused on GPT-3.5 vs. GPT-4, newer models and configurations combining reasoning and tool-use have been released. While they can improve results, studies consistently report hallucinations, outdated knowledge, and stylistic artifacts distinguishable from expert writing \cite{PATEL2024115, Hulman2023-zp, McGrath2024-zx, hier2024highthroughputphenotypingclinicaltext}. 
+
+Foundation models for DNA/RNA/protein (e.g., GENA-LM, Nucleotide Transformer, MethylGPT, CellFM \cite{Zeng2025}, Enformer \cite{Avsec2021}) provide reusable representations for splice/regulatory effect prediction, epigenomic signal transfer, variant effect scoring, and downstream tasks including drug response and trait/PRS modeling. Such pre-trained models can be fine-tuned for any specific task, provided with data. Their main cautions concern tokenization granularity, long-range dependencies, domain/species shift, and calibration on rare regions or reliance on predicted structures.
+
+If the goal is to process other types of data beyond text, specialized model types have to be used. For instance, vision backbones and hybrid CNN-Transformer systems address a range of image processing tasks, including working with MRI, microscopic images, and facial phenotypes for tasks such as mutation status prediction (e.g., CroMAM, BPGT, PromptBio), karyotyping (e.g., ChromTR, Tokensome), and syndrome suggestion (e.g., GestaltMML). When the foal is to align or fuse imaging, sequences, or text, multimodal models (e.g., MGI, BioFusionNet, Genetic InfoMax) can be developed (see next subsection for discussion of related techniques). As mentioned in earlier sections, these models allow for more accurate predictions compared to single-modality models (e.g., for tasks such as predicting cancer patient survival \cite{Mondol_2024}). However, gains from using image data or multimodal fusion depend more on data acquisition methods (e.g., imaging instruments or staining techniques), and may be particularly vulnerable to class balance or other issues characteristic of traditional machine learning frameworks. These problems may have a comparable or even more dramatic impact than model size, and special attention has to be dedicated to data preparation. Techniques, such as normalization, site-balanced splits, and external validation mitigate common risks.
+
+Finally, complex specialized architectures (Epi-PRS, Prophet, TransBTS) combine multiple mechanisms (convolution, attention, classical ML) to model relations across sequences, images, and text. Such pipelines can substantially improve machine understanding of clinical-genetic signals but require deeper domain knowledge in model training and testing.
+
+Overall, model selection should be driven by task, data, and safety requirements: encoders for extraction and normalization, decoder LLMs (with retrieval/tools) for controllable generation, encoder-decoder models for structured seq2seq outputs, biological foundation models when specific pattern understanding is needed, and multimodal/vision architectures where phenotype-genotype links are image-mediated. Using the latest versions, domain adaptation, and careful prompting improves performance, but rigorous evaluation remains essential \cite{Mondillo2024.08.20.24312291, https://doi.org/10.1002/2056-4538.70009, genes16010029, Temsah2024-ux}. In the next section, we will consider techniques that can improve the results of model usage. 
+
+
+\subsection{Model Strategies}
+
+
+
+We now discuss how to achieve effective use of transformer models, since outcomes depend on how systems are composed. Table~\ref{tab:techniques} aggregates prompting, retrieval, tool-use, long-context modeling, multimodal fusion, privacy-preserving training, and evaluation patterns, indicating when to use them, expected benefits, typical limitations, and concrete mitigations.
+
+\begin{table}[htbp]
+\centering
+\caption{From clinical data problems to LLM-based solutions: techniques/patterns with benefits, limitations, and mitigations.}
+\label{tab:techniques}
+\setlength{\tabcolsep}{3pt}            
+\renewcommand{\arraystretch}{1.12}     
+\footnotesize                          
+\begin{tabularx}{\textwidth}{YYYYY}
+\toprule
+\textbf{Problem/Task} &
+\textbf{Technique / Pattern} & 
+% \textbf{Use when} & 
+\textbf{Benefits} & 
+\textbf{Limitations} &
+\textbf{Mitigations} \\
+\midrule
+
+Noisy or unstandardized data &
+Modality-specific preprocessing \& QC & 
+Segmentation, standardization, and others improve the proportion of useful signal relative to noise &
+Lack of robustness to small changes, hidden preprocessing bias, reproducibility issues &
+Ensure consistent preprocessing and QC, document steps, lock versions, validate externally \\
+
+\addlinespace[2pt]
+General models miss local or disease-specific patterns &
+Fine-tuning and domain adaptation  &
+Improves accuracy and relevance with small task/disease-specific datasets without retraining from scratch &
+Risk of overfitting to limited data, loss of general knowledge, high computational and data-governance costs &
+Use parameter-efficient tuning (LoRA, adapters), maintain a frozen backbone (fine-tune some layers), evaluate on external cohorts \\
+\addlinespace[2pt]
+
+Need to capture long-range dependencies (enhancer–promoter, splicing, chromatin) &
+Long-context transformers (e.g., GENA-LM, Nucleotide Transformer) &
+Capture distal interactions, zero/few-shot transfer (see below) &
+Tokenization-biology mismatch, local vs distal trade-offs &
+Combine local and global contexts, add task-specific layers, benchmark against short-range models \\
+\addlinespace[2pt]
+
+Multiple modalities or missing inputs (e.g., images, text, genomics) &
+Contrastive / cross-attention multimodal fusion &
+Leverages complementary signals, better robustness &
+Modality imbalance, missing modalities at inference &
+Hyperparameters (e.g., temperature) tuning, validate on diverse, multi-site data \\
+\addlinespace[2pt]
+
+Need structured reasoning without retraining &
+Prompting, Chain-of-Thoughts (CoT), one/few-shot &
+Clearer reasoning, consistent templates, reusable across workflows &
+Prompt leakage, verbosity, unstable zero-shot behavior &
+Use prompting techniques with verified examples and desired structure, separate reasoning from final output, review regularly \\
+\addlinespace[2pt]
+
+
+Need verifiable and up-to-date, reference-grounded answers &
+Retrieval Augmented Generation (RAG) & 
+Reduces hallucinations, controlled trace of thinking (aligned with procedure) &
+Weak/irrelevant retrieval, outdated or uncurated sources, broken links &
+Maintain curated document indices, track data freshness, require sources and inline citations \\
+\addlinespace[2pt]
+
+
+Tasks require external tools, databases, or code execution (e.g., HPO mapping, risk scores); examples: BioAgents, BioChatter &
+Tool-use / agents & 
+Decomposes complex tasks, produces tool traces for reproducibility &
+Tool failures/latency, unsafe or unknown tools, error propagation between steps &
+Use only approved tools, include safety checks, monitor failures, involve experts for critical cases \\
+\addlinespace[2pt]
+
+Data cannot be shared between sites (privacy, GDPR/HIPAA) &
+Federated Learning & 
+Collaboration without raw data sharing, regulatory alignment, local control &
+Complex evaluation/logistics &
+Use clean external test sets, preregister benchmarks, publish prompts and model details for transparency \\
+\addlinespace[2pt]
+
+Need fair evaluation and leakage prevention &
+Evaluation \& leakage-aware benchmarks & 
+Detects contamination; fair comparisons &
+Hidden leakage, overfitting to public test sets, under-reported settings &
+Use clean external test sets, preregister evaluation, publish prompts and model details for transparency, avoid testing on training data \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+
+Prior to model training, data quality control (QC) and preprocessing are important. Artifacts, missing data points, or inconsistent phenotype capture degrade model inputs \cite{NIJMAN2022218, LIU2023102587, 10373591,Castro2020}. Preprocessing (e.g., segmentation, standardization) improves data quality by reducing artifacts, but increases can also encode hidden bias or lead to reproducibility issues \cite{10373591,Castro2020}. Fully documenting steps and QC, pinning versions, and testing on external datasets are essential for robustness and reproducibility. 
+
+General LMs (e.g., BioBERT, GENA-LM, GPT-4) often miss disease- or site-specific patterns, labeled cohorts are small (risk of overfitting/forgetting), access to protected data is constrained, and guidelines keep changing, models must be adapted for the target task while remaining flexible \cite{Pati2024-yd, Rockenschaub2025, ACGS2024_VariantClassification_v1_2}. One of the possible solutions is using fine-tuning and domain adaptation. Full fine-tuning (i.e., task-specific re-training) can maximize alignment when labels and compute suffice, but risks overfitting and forgetting on small cohorts. Parameter-efficient methods (PEFT -- small parameter updates \cite{xu2023parameterefficientfinetuningmethodspretrained}; e.g., LoRA\cite{hu2021loralowrankadaptationlarge}/adapters\cite{poth2023adaptersunifiedlibraryparameterefficient}/QLoRA\cite{dettmers2023qloraefficientfinetuningquantized}) keep the backbone of the model frozen, reduce compute and exposure of protected information, and enable rapid iteration across disease/task variants \cite{dettmers2023qloraefficientfinetuningquantized}. Mixed and continual training (keeping learning gradually) helps retain broad knowledge useful for retrieval and classification while still specializing: by exposing the model to diverse data/tasks at once, it builds more general representations, reduces overfitting, and stays flexible. In contrast, the classic pretrain-then-finetune pipeline deepens task-specific skills but is more prone to overfitting on small cohorts. Evidence suggests mixed training yields models that remain adaptable for downstream tasks, important in genetics, where knowledge and guidelines evolve, balancing specialization and generalization, e.g. for genetic counseling or variant interpretation \cite{allenzhu2024physicslanguagemodels32}. Recent findings also show that domain-specific pretraining alone does not guarantee superiority: randomly initialized models can match or exceed genomic foundation models in downstream tasks \cite{Vishniakov2024.12.18.628606}. Moreover, very small, task-focused LMs with selective incremental learning can be competitive for pathway inference while reducing hallucinations \cite{saha2025reconstructingbiologicalpathwaysapplying}.
+
+
+Clinical notes and omics sequences contain distal dependencies that short-context models miss; tokenization can also contradict biology (sequence chunking vs. function). Long-context sequence models (e.g., GENA-LM, Nucleotide Transformer) deal with this by targeting both long- and short-distal dependencies in long notes and genomes. Hybrid windows (local+global), task-specific heads, and comparisons to short-context baselines help maintain accuracy. 
+What is more, decisions and solutions should often rely on data with multiple modalities, such as images, genomics, and text (otherwise, insights from complementary signals will be lost). There are two common ways for multimodal fusion, which means combining such data. The first approach is contrastive learning to place all modalities in the same shared space and train a model to understand the relationship between data points by learning to differentiate between similar and dissimilar pairs \cite{chen2020simpleframeworkcontrastivelearning, Hadizadeh_Moghaddam_2024}. The second one is using cross-attention between modalities or late fusion to let one modality use information from another \cite{li2025multimodalalignmentfusionsurvey}. Typical problems are modality imbalance, a missing modality at test time, and domain shift from site/scanner/stain differences. Practical fixes include curriculum learning and hyperparameters (e.g. temperature) tuning (for contrastive), missing-modality heads, or modality dropout. 
+Additionally, specialists often need structured, step-wise outputs without retraining; naive prompts can leak context, get verbose, and behave unstably in a zero-shot setting (when output examples are not included in the query prompt). Prompting, including adding specific instructions for reasoning (Chain-of-Thought) \cite{lee2025knowledgedrivenfeatureselectionengineering, van_Uhm2024.11.11.24317087}, providing one to several examples of the desired structure and result (this technique is called one or few-shot learning), helps to create structured and desired outputs. However, it is still vulnerable to leakage and verbosity, therefore periodically validating/updating prompt libraries remains important. 
+Furthermore, clinical answers must be fact-checked and reference-backed, since relying on internal model memory can produce hallucinations (confident mistakes). RAG searches databases and websites before generating answers, therefore reducing hallucinations and providing a controllable, citable trace. Key practices include using curated indices (e.g., ClinVar/OMIM/HPO), enforcing freshness policies, applying document-grounded scoring, requiring inline citations, and using deterministic decoding with version pinning to ensure actuality, auditability, and stability \cite{Coen2024-ug, Murugan2024-lo, Fukushima2025-oi, Quidwai2024.03.14.24304293, https://doi.org/10.1002/2056-4538.70009, 10.1093/bioadv/vbaf019}. These approaches help mitigate the risk of relying solely on a model’s internal memory.
+
+Biomedical workflows are often complex and require calculations, ontology/database queries, and code execution. Otherwise analysis steps are not reproducible and reliable. Tool-use and agents decompose complex workflows into callable steps (calculations, ontology/database queries, code execution) and preserve traces for reproducibility. They help with HPO mapping, risk scores, hypothesis generation, and experiment planning. Open frameworks and systems, such as BioChatter \cite{Lobentanzer2025-vu} or BioAgents \cite{mehandru2025bioagentsdemocratizingbioinformaticsanalysis} demonstrate constrained, locally deployable, retrieval-enhanced pipelines for biomedical tasks. Advanced agentic systems for genetics include BioDiscoveryAgent for perturbation-experiment design \cite{roohani2025biodiscoveryagentaiagentdesigning} and a chatbot agent to facilitate family communication of hereditary risk in familial hypercholesterolemia \cite{WALTERS2023100134}. 
+
+Finally, multi-site collaboration is often required, while raw data cannot be shared. Federated learning enables privacy-preserving training and cross-site collaboration without raw data exchange, aligning with regulatory expectations \cite{Amin2024-gb, genes15121650, 10.3389/fdata.2024.1266031}. However, these techniques usually require additional technical expertise. 
+
+Taken together, these practices underscore that effectiveness depends not only on model scale but also on task alignment, prompt design, real-time access to knowledge, and auditable reasoning tools, which are key ingredients for trustworthy clinical deployment. In the next section, we will consider evaluation and benchmarks, which are necessary for credible claims about the model's quality. 
+
+\subsection{Data and Benchmarks}
+
+The growing use of generative AI is closely tied to the quality of available datasets and benchmarks. Reliable evaluation and generalization depend not only on model design but also on data diversity, integrity, and task-relevant benchmarking protocols \cite{NIJMAN2022218, LIU2023102587, 10373591, Castro2020}. 
+
+LLM applications in genetic diagnostics require reliability; therefore, robust benchmarks are vital for comparing models and ensuring trust. CARDBiomedBench \cite{Bianchi2025.01.15.633272} exemplifies this shift, offering a multi-domain Q\&A benchmark in biomedicine. Its design is based on curated expert knowledge and data augmentation, which exposes real gaps in model reasoning and safety, even among state-of-the-art systems. The number of domain benchmarks, reported scores, and proposed tracking methods continues to grow \cite{Labbe2023-lj, Tarabanis2024-er, Keat2025-lv, Hamilton2024-cw, Li2024.10.29.621006, murphy2024.06.10.24308475, osullivan2024democratizationsubspecialitymedicalexpertise}, helping move beyond general-purpose NLP benchmarks toward the nuanced reasoning required in biomedical decision-making.
+
+
+Recent work in other technical domains has highlighted the threat of benchmark leakage, where models inadvertently see test data during pretraining \cite{zhou2025lessleakbenchinvestigationdataleakage, ni2025trainingbenchmarkneed}.
+Complementing these findings, another study shows a chronological "task contamination" effect: LLMs score markedly higher on datasets released before their training data cutoff than on post-cutoff sets, with supporting evidence from training-data inspection and membership-inference attacks, underscoring how pretraining overlap can inflate zero/few-shot results \cite{li2023taskcontaminationlanguagemodels}. These studies demonstrate how leakage can inflate performance and undermine credibility, motivating leakage-aware protocols and transparent documentation of training data, especially sensitive domains, such as biomedicine.
+
+As noted throughout this review, modern clinical models must integrate diverse data types: text, images, genomics, structured records, which requires both scalable architectures and consistent input quality. Recent methods improve efficiency in multimodal fusion (e.g., contrastive learning, cross-attention) \cite{golovanevsky2024oneversusothersattentionscalablemultimodal, jpm14040421, wu2024gestaltmmlenhancingraregenetic, Mondol_2024, zhou2024mgimultimodalcontrastivepretraining, shirkavand2023incompletemultimodallearningcomplex,  Machado_Reyes2024.11.02.24316653}, while preprocessing helps standardize specific modalities (e.g., segmentation \cite{Yuan2024-wp, shi2023nextouefficienttopologyawareunet, FU2024107938}, or facial axes standardization  \cite{alomar2024automaticfacialaxesstandardization}).
+
+Independent of architecture, version pinning (model, tokenizer, prompts, decoding parameters), leakage-aware evaluation, and traceability (logged sources, tool traces, decision checkpoints) improve safety and reproducibility \cite{Raff2025Reproducibility, 10.1002/aaai.70002}. For transparent assessment and regulatory preparedness, healthcare reporting checklists such as MI-CLEAR-LLM are recommended \cite{Park2024-vc}. Together, these developments underscore that the value of LLMs in genetics is not solely defined by model architecture. Equally important are the integrity of training and evaluation datasets, the representativeness of benchmarks, and the methods used to integrate and align multimodal inputs.  
+
+\subsection{Biases}
+
+Despite their impressive capabilities, LLMs often reflect biases present in their training data, which can affect clinical utility. Several studies have revealed racial and demographic biases in generated medical reports and other outputs \cite{Yang2024-zv, Lin2024-yg}, while others show variations in performance across age-specific manifestations of genetic disorders \cite{Othman2025.01.19.25320798} or reviewer experience levels \cite{LEVIN2024669}. Language also remains a critical source of disparity: most biomedical models are English-centric, limiting accessibility and accuracy in other languages. Resources, such as MedLexSp for Spanish \cite{Campillos-Llanos2023}, Chinese medical conversational Q\&A \cite{weng2023largelanguagemodelsneed}, and domain adaptation efforts for Japanese genetic counseling \cite{Fukushima2025-oi}, demonstrate how localized models and lexicons can help reduce these gaps. 
+
+Overall findings underscore the need for language-specific resources, ongoing fairness audits, and rigorous ethical evaluation. In practice, we recommend reporting results stratified by site and language (separate metrics per hospital/registry and clinical language), using ancestry-aware sampling (balance/weight cohorts to match the target population), and scheduling fairness "health checks" in production (periodic audits of subgroup gaps with pre-set thresholds and remediation).
+
+
+\section{Conclusions}
+As detailed in this review, transformer-based models have made significant progress in various critical tasks within the research and diagnosis of human genetic diseases. Generative AI methods have proven their efficiency in diverse tasks related to knowledge navigation, analysis of clinical and genetic data, and interaction with researchers, medical specialists, and patients. Owing to the peculiar architecture of generative models, they have found their application beyond standard classification tasks, and are now widely used for complex tasks such as genetic variant interpretation, generation of novel biological hypotheses, or prediction of complex epigenomic features for polygenic risk assessment. 
+
+Generative AI tools, including LLMs, hold clear potential for supporting various professional roles involved in genetic medicine. For clinical geneticists, LLM-powered systems (described in this article as well as newly developed) can assist in providing definitive diagnosis, prediction of individual risks, and interactions with patients. For researchers and bioinformaticians, such models offer solutions for complicated tasks involving processes of vast amounts of genomic or other high-throughput data. As LLMs mature, we anticipate their deployment in software environments designed to assist these distinct expert groups, enhancing the quality and speed of inherited disease diagnostics.
+
+Naturally, this review cannot cover every tool and model in a field that evolves so rapidly. Rather, it provides a structured overview that can serve as a classifier and guide, helping researchers and practitioners navigate the fast-growing landscape of LLM applications in human medical genomics.
+
+
+
+\section{Data Availability}
+All data and code pertinent to the results presented in this work are available at \url{https://github.com/TohaRhymes/llm_in_diagnostics}.
+
+\renewcommand{\thefigure}{\arabic{figure}}
+\renewcommand{\figurename}{Supplementary Figure}
+\setcounter{figure}{0}
+
+\section{Acknowledgments}
+This research was supported by the Ministry of Science and Higher Education of the Russian Federation (project "Multicenter research bioresource collection "Reproductive Health of the Family" contract No. 075-15-2025-478 from 29 May 2025).
+
+\newpage
+%Bibliography
+\bibliographystyle{unsrt}  
+\bibliography{references}  
+\newpage
+
+\section{Appendix}
+
+\subsection{Appendix A: TF-IDF and Filtering Methods}
+\label{sec:tfidf_methods}
+
+
+As mentioned earlier, TF-IDF helped to identify areas of the research in applications of LLMs. It was applied to the full corpus ($51{,}613 (XXX)$ records after deduplication), the curated review set ($187 (XXX)$ articles), and a filtered variant where generic AI/ML phrases were removed (to move beyond obvious LLM keyword: e.g., "language model", "deep learning" -- full pattern list in Supplementary Methods). Bigram-trigram TF-IDF scores were computed (scikit-learn’s \texttt{TfidfVectorizer} with \texttt{ngram\_range=(2,3)} and \texttt{max\_features=1000}), lower-casing and removing English stop-words plus custom artifacts (e.g., "et al"). 
+
+Sources within the curated set were compared by stratifying PubMed ($n=XXX$) versus preprints (bioRxiv/medRxiv/arXiv; $n=XXX$). For each comparison, union of the two top-30 lists was applied. This helped to capture the shift from generic to domain-specific terminology and highlight complementary emphases between peer-reviewed and preprint venues.
+
+
+
+
+
+Additional representations of TF-IDF analysis are shown in two figures: Supplementary Figure~\ref{SF1} (three-stage progression of TF-IDF after selecting articles and filtering words) and Supplementary Figure~\ref{SF2} (comparison of sources before filtering).
+
+In addition to standard English stop-words, generic AI/ML phrases and artifacts to surface domain-specific terminology were excluded. The final list included following common terms: large language, language model, llm, llms, generative ai, deep learning, machine learning, artificial intelligence, natural language, language processing, nlp, state art, based, using, https, github, model, learning, data.
+
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{imgs/SFig1_progression_top30.pdf}
+  \caption{Progression of TF-IDF analysis from full corpus to filtered insights.
+  (A) Full dataset ($51{,}613 (XXX)$ articles): generic anchors dominate; 
+  (B) Selected articles ($XXX$): core themes retained; 
+  (C) Selected articles + After filtered words: domain-specific trends (e.g., precision medicine, gene expression, human phenotype ontology, 
+  single cell) become prominent. Horizontal bars show the top-30 phrases per stage.}
+  \label{SF1}
+\end{figure}
+
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=\textwidth]{imgs/SFig2_selected_comparison_top30.pdf}
+  \caption{Source comparison before filtering generic phrases.
+  Grouped bars show TF-DF on the same scale for the union of top-30 phrases across PubMed ($n=XXX$) and preprints ($n=XXX$).}
+  \label{SF2}
+\end{figure}
+
+
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.73\textwidth]{imgs/Fig3_selected_filtered_comparison_top30.pdf}
+  \caption{Source comparison of research trends after article selection and filtering of generic AI/ML phrases.
+  Grouped bars show actual TF-IDF scores for the union of top-30 phrases from PubMed ($n=XXX$) and preprints ($n=XXX$) on the same scale.
+  }
+  \label{fig3:tfidf_source_filtered}
+\end{figure}
+
+
+\newpage
+
+\subsection{Appendix B: Supplementary Tables - Annotated Article Dataset}
+
+Two supplementary tables were compiled to support the analysis presented in this study. Supplementary Table~1 contains the complete list of articles included after initial collection, deduplication, and manual verification. Supplementary Table~2 provides an extended, manually annotated version of the dataset with additional semantic tags and classification columns.
+
+\textbf{Supplementary Table 1} (ST1) presents the cleaned dataset after the removal of duplicates and initial triage. Duplicate entries were identified not only through automatic preprocessing but also through joint manual assessment by two researchers, ensuring a consistent and conservative approach to inclusion. ST1 includes metadata such as the article title, abstract, source, review status, and initial relevance tag.
+
+\textbf{Supplementary Table 2} (ST2) expands upon this initial dataset by including additional annotations used in the systematic analysis. These include section-level classification (\texttt{what section used}), fine-grained labels for specific tasks inside these stages (\texttt{subgroup}), topic tags related to artificial intelligence and medicine (\texttt{ai\_topic}, \texttt{medicine\_topic}), and three binary relevance flags (\texttt{not\_relevant}, \texttt{partly\_relevant}, \texttt{relevant}). Five manually selected articles were also added at this stage (four highly relevant and one partially relevant), resulting in a total of 304 XXX articles in ST2. These additions were motivated by expert review and targeted searches within the originally collected corpus and cited references. 
+
+Detailed descriptions of column meanings and classification codes are available in the project GitHub repository\footnote{\url{https://github.com/TohaRhymes/llm_in_diagnostics}}.
+
+
+% \section{Examples of citations, figures, tables, references}
+% \label{sec:others}
+% \lipsum[8] \cite{kour2014real,kour2014fast} and see \cite{hadash2018estimate}.
+
+% The documentation for \verb+natbib+ may be found at
+% \begin{center}
+%   \url{http://mirrors.ctan.org/macros/latex/contrib/natbib/natnotes.pdf}
+% \end{center}
+% Of note is the command \verb+\citet+, which produces citations
+% appropriate for use in inline text.  For example,
+% \begin{verbatim}
+%    \citet{hasselmo} investigated\dots
+% \end{verbatim}
+% produces
+% \begin{quote}
+%   Hasselmo, et al.\ (1995) investigated\dots
+% \end{quote}
+
+% \begin{center}
+%   \url{https://www.ctan.org/pkg/booktabs}
+% \end{center}
+
+
+% \subsection{Figures}
+% \lipsum[10] 
+% See Figure \ref{fig:fig1}. Here is how you add footnotes. \footnote{Sample of the first footnote.}
+% \lipsum[11] 
+
+% \begin{figure}
+%   \centering
+%   \fbox{\rule[-.5cm]{4cm}{4cm} \rule[-.5cm]{4cm}{0cm}}
+%   \caption{Sample figure caption.}
+%   \label{fig:fig1}
+% \end{figure}
+
+% \subsection{Tables}
+% \lipsum[12]
+% See awesome Table~\ref{tab:table}.
+
+% \begin{table}
+%  \caption{Sample table title}
+%   \centering
+%   \begin{tabular}{lll}
+%     \toprule
+%     \multicolumn{2}{c}{Part}                   \\
+%     \cmidrule(r){1-2}
+%     Name     & Description     & Size ($\mu$m) \\
+%     \midrule
+%     Dendrite & Input terminal  & $\sim$100     \\
+%     Axon     & Output terminal & $\sim$10      \\
+%     Soma     & Cell body       & up to $10^6$  \\
+%     \bottomrule
+%   \end{tabular}
+%   \label{tab:table}
+% \end{table}
+
+% \subsection{Lists}
+% \begin{itemize}
+% \item Lorem ipsum dolor sit amet
+% \item consectetur adipiscing elit. 
+% \item Aliquam dignissim blandit est, in dictum tortor gravida eget. In ac rutrum magna.
+% \end{itemize}
+
+
+
+\end{document}
