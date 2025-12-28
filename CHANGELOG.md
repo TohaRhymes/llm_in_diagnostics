@@ -181,18 +181,20 @@ llm_in_diagnostics/
 
 ### Коммит 1: Restructure project for better organization and clarity
 ```
-b95d982 - Основная реорганизация
+bc37f4a - Основная реорганизация
 - Создана структура директорий
 - Перемещены все файлы
 - Обновлены пути в коде
 - Создана документация
+- Исключены большие CSV файлы (>100MB)
 ```
 
-### Коммит 2: Fix remaining outdated file references
+### Коммит 2: Update .gitignore and regenerate cleaned.csv.zip archive
 ```
-1285231 - Финальные исправления
-- Исправлена ссылка ST2_v2 в комментарии
-- Исправлены пути imgs/ в notebook 2
+4a7ccfb - Работа с архивами
+- Добавлены правила .gitignore для больших CSV файлов
+- Обновлен cleaned.csv.zip (67MB, MD5 проверен)
+- Исключены из git: 0_all.csv (102MB), cleaned.csv (179MB)
 ```
 
 ---
@@ -265,13 +267,19 @@ jupyter notebook 2_clean_EDA_and_clinical_extraction.ipynb
 - Убедиться что ссылки на фигуры работают
 - При необходимости добавить badges
 
-### 5. Архивировать старые данные (опционально)
+### 5. Использование архивов данных
 ```bash
-# Если нужно освободить место:
+# Большие CSV файлы исключены из git (.gitignore)
+# Используйте архивы для работы:
+
+# Распаковать данные при необходимости:
 cd data/raw
-gzip 0_all.csv      # Уже есть .zip версия
+unzip 0_all.csv.zip         # → 0_all.csv (102MB)
+
 cd ../processed
-gzip cleaned.csv    # Уже есть .zip версия
+unzip cleaned.csv.zip       # → cleaned.csv (179MB)
+
+# Примечание: архивы актуальные, MD5 проверены
 ```
 
 ---
