@@ -4,7 +4,7 @@ This project presents a systematic review and analysis of how large language mod
 
 **Published Research**: Changalidis et al. (2025) - "A Systematic Review on the Generative AI Applications in Human Medical Genomics" ([arXiv:2508.20275](https://arxiv.org/abs/2508.20275))
 
-## 📋 Citation
+## Citation
 
 If you want to cite this research, please use the following format:
 
@@ -20,7 +20,7 @@ If you want to cite this research, please use the following format:
 }
 ```
 
-## 🗂️ Project Structure
+## Project Structure
 
 ```
 llm_in_diagnostics/
@@ -80,7 +80,7 @@ llm_in_diagnostics/
 └── LICENSE
 ```
 
-## 🔬 Data Pipeline
+## Data Pipeline
 
 The project follows a sequential pipeline for systematic literature review:
 
@@ -127,7 +127,7 @@ Articles from `clinic_genetic.csv` were manually reviewed and annotated using de
 ### 6. Utility Tool (`scripts/3_highlight.py`)
 Terminal-based tool to review abstracts with color-coded keyword highlighting
 
-## 🚀 Running the Pipeline
+## Running the Pipeline
 
 ### Data Fetching
 ```bash
@@ -159,7 +159,7 @@ python 3_highlight.py
 python 6_citation_analysis.py
 ```
 
-## 📦 Dependencies
+## Dependencies
 
 ```python
 # Core
@@ -183,7 +183,7 @@ tqdm           # Progress bars
 
 **Environment**: Python 3.11.5 (Conda)
 
-## 📊 Key Datasets
+## Key Datasets
 
 - **Full dataset** (`data/processed/cleaned.csv`): 51,613 articles
 - **Filtered dataset** (`data/processed/clinic_genetic.csv`): 576 articles
@@ -191,25 +191,25 @@ tqdm           # Progress bars
   - PubMed: 125 articles
   - Preprints (arXiv, bioRxiv, medRxiv): 62 articles
 
-## 📖 Documentation
+## Documentation
 
 - **TF-IDF Analysis**: See `results/tfidf/README.md` for detailed documentation
 - **Citation Analysis**: See `results/citations/README.md`
 - **Annotation Schema**: See `data/final/ST_readme.txt`
 - **For Claude Code**: See `CLAUDE.md` for development instructions
 
-## 📝 License
+## License
 
 See `LICENSE` file for details.
 
-## 👥 Authors
+## Authors
 
 - Anton Changalidis
 - Yury Barbitoff
 - Yulia Nasykhova
 - Andrey Glotov
 
-## 🔗 Links
+## Links
 
 - **Paper**: [arXiv:2508.20275](https://arxiv.org/abs/2508.20275)
 - **GitHub**: [Repository](https://github.com/yourusername/llm_in_diagnostics)
