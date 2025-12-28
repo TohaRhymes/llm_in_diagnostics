@@ -43,13 +43,11 @@ llm_in_diagnostics/
 │   ├── processed/             # Cleaned and filtered data
 │   │   ├── cleaned.csv        # Deduplicated dataset (51,613 articles)
 │   │   └── clinic_genetic.csv # Clinically relevant articles (576 articles)
-│   ├── final/                 # Final manually annotated tables
-│   │   ├── ST1.csv            # Supplementary Table 1
-│   │   ├── ST2.csv            # Supplementary Table 2 (manually annotated)
-│   │   ├── coded_st2.csv      # Coded version of ST2
-│   │   └── ST_readme.txt      # Annotation schema description
-│   └── manuscript/
-│       └── templateArxiv.tex  # LaTeX manuscript
+│   └── final/                 # Final manually annotated tables
+│       ├── ST1.csv            # Supplementary Table 1
+│       ├── ST2.csv            # Supplementary Table 2 (manually annotated)
+│       ├── coded_st2.csv      # Coded version of ST2
+│       └── ST_readme.txt      # Annotation schema description
 │
 ├── figures/                    # All figures for the manuscript
 │   ├── fig1.pdf               # Main figure 1
