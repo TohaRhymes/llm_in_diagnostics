@@ -67,3 +67,7 @@ deprecated/
 # Temporary files
 *.tmp
 *.bak
+
+# Office lock files
+.~lock.*
+~$*

@@ -45,7 +45,7 @@ llm_in_diagnostics/
 │   │   └── clinic_genetic.csv # Clinically relevant articles (576 articles)
 │   ├── final/                 # Final manually annotated tables
 │   │   ├── ST1.csv            # Supplementary Table 1
-│   │   ├── ST2.csv            # Supplementary Table 2 (187 articles)
+│   │   ├── ST2.csv            # Supplementary Table 2 (manually annotated)
 │   │   ├── coded_st2.csv      # Coded version of ST2
 │   │   └── ST_readme.txt      # Annotation schema description
 │   └── manuscript/
@@ -187,7 +187,7 @@ tqdm           # Progress bars
 
 - **Full dataset** (`data/processed/cleaned.csv`): 51,613 articles
 - **Filtered dataset** (`data/processed/clinic_genetic.csv`): 576 articles
-- **Final reviewed** (`data/final/ST2.csv`): 187 articles
+- **Final reviewed** (`data/final/ST2.csv`): Manually annotated articles with detailed classification (see published paper for exact counts)
   - PubMed: 125 articles
   - Preprints (arXiv, bioRxiv, medRxiv): 62 articles
 
