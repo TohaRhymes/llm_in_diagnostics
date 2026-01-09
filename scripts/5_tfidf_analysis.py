@@ -15,6 +15,8 @@ OUTPUTS:
 - ../results/tfidf/tables/ST3.csv: Topic modeling metadata
 - ../results/tfidf/tables/ST4.csv: Document-topic probability distribution
 - ../figures/: All figures (SFig1-5)
+  - SFig4: Fine-tuned comparison (PubMed vs Preprints)
+  - SFig5: Topic modeling scatter plot
 
 Author: Changalidis Anton
 """
@@ -732,13 +734,13 @@ plot_source_comparison_grouped(
 # STEP 7B: FINE-TUNED SOURCE COMPARISON
 # ============================================================================
 
-print("\n[11/13] Creating fine-tuned source comparison (SFig5: Context-preserving fine-tuned)...")
+print("\n[11/13] Creating fine-tuned source comparison (SFig4: Context-preserving fine-tuned)...")
 
 plot_source_comparison_grouped(
     finetuned_pubmed,
     finetuned_preprints,
     f'Source Comparison: Fine-Tuned Analysis (Top-{TOP_N})\nContext Preserved, Post-hoc Reweighting',
-    f'{FIGURES_DIR}/SFig5_finetuned_comparison_top{TOP_N}.pdf',
+    f'{FIGURES_DIR}/SFig4_finetuned_comparison_top{TOP_N}.pdf',
     n=TOP_N,
     sort_by='pubmed'
 )
@@ -759,7 +761,7 @@ topic_doc_topic.to_csv(f'{OUTPUT_DIR}/tables/ST4.csv', index=False)
 
 plot_topic_scatter(
     topic_scatter_df,
-    f'{FIGURES_DIR}/SFig4_topic_scatter.pdf'
+    f'{FIGURES_DIR}/SFig5_topic_scatter.pdf'
 )
 
 # ============================================================================
@@ -870,7 +872,7 @@ Grouped bar plots show direct comparison on same scale (top-{TOP_N} phrases).
 - Fine-tuned analysis: Confirms that reweighting after masking generic anchors preserves the same specific trends
 - Conclusion: Both PubMed and Preprints provide unique value
 
-### Topic Modeling Scatter (Supplementary Figure S4)
+### Topic Modeling Scatter (Supplementary Figure S5)
 - Eight LDA topics fitted on the curated set using gensim (lower-cased alphanumeric tokens, len>2).
 - Scatter plot uses a custom force-directed layout seeded by Jensen-Shannon divergence, with bubble size reflecting topic prevalence across 192 curated articles.
 - Labels display the top five terms per topic, making overlap and adjacency interpretable at a glance.
@@ -896,7 +898,7 @@ TF-IDF Configuration:
 - The fine-tuned analysis is the one we highlight in the response letter: it keeps context, down-weights generic phrases after fitting, and surfaces the same domain-specific signals reported in the main text.
 
 ### Comment 3 (Topic-Model Scatter Plot Request)
-- Added Supplementary Figure S4 (topic scatter) summarizing eight LDA topics with PCA coordinates and prevalence-based bubble sizes.
+- Added Supplementary Figure S5 (topic scatter) summarizing eight LDA topics with PCA coordinates and prevalence-based bubble sizes.
 - Scatter labels display the top five bigram terms per topic, making overlap intuitive without adding another set of bar charts.
 - We can now state in the response that topic modeling visual support is provided while keeping the figure count lean (one new supplementary figure covering both requests).
 """
@@ -924,10 +926,10 @@ print(f"    - SFig2_selected_comparison_top{TOP_N}.pdf")
 print(f"      PubMed vs Preprints comparison after selection (before filtering)")
 print(f"    - SFig3_selected_filtered_comparison_top{TOP_N}.pdf")
 print(f"      Supplement copy of filtered comparison (mirrors Fig3 for easy reference)")
-print(f"    - SFig4_topic_scatter.pdf")
-print(f"      LDA topic scatter with prevalence-based bubbles")
-print(f"    - SFig5_finetuned_comparison_top{TOP_N}.pdf")
+print(f"    - SFig4_finetuned_comparison_top{TOP_N}.pdf")
 print(f"      PubMed vs Preprints fine-tuned analysis (context preserved, post-hoc reweighting)")
+print(f"    - SFig5_topic_scatter.pdf")
+print(f"      LDA topic scatter with prevalence-based bubbles")
 print(f"")
 print(f"  Data tables: {OUTPUT_DIR}/tables/")
 print(f"    - Full + standard + filtered top-{TOP_N} CSVs")

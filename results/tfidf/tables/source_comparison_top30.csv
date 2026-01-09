@@ -1,4 +1,4 @@
 Analysis,Top_N,PubMed_unique,Preprints_unique,Overlap,Overlap_pct,Union_terms
-Standard,30,13,13,17,56.666666666666664,43
-Filtered,30,23,23,7,23.333333333333332,53
-Fine-Tuned,30,23,23,7,23.333333333333332,53
+Standard,30,10,10,20,66.66666666666666,40
+Filtered,30,20,20,10,33.33333333333333,50
+Fine-Tuned,30,20,20,10,33.33333333333333,50

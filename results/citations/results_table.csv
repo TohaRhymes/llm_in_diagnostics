@@ -13,8 +13,8 @@ Results,Genetic Data Analysis,phenotype prediction,12,10,32
 Results,Communication,"medical professional
 communication",20,15,28
 Results,Communication,"patient communication &
-counselling",28,22,28
-Results,Related Research Areas,,44,26,43
-Discussion,,LLMs selection guide & model strategies,15,13,14
+counselling",10,9,28
+Results,Related Research Areas,,44,25,44
+Discussion,,LLMs selection guide & model strategies,16,16,16
 Discussion,,data and benchmarks,6,6,6
-Discussion,,biases and limitations,4,4,4
+Discussion,,biases and limitations,6,6,6

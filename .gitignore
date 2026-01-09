@@ -53,6 +53,8 @@ venv.bak/
 *.csv.bak
 *.csv.tmp
 
+data/manuscript
+
 # Large CSV files (>100MB) - use .zip archives instead
 data/raw/0_all.csv
 data/processed/cleaned.csv

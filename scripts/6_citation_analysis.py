@@ -17,6 +17,7 @@ TEX_FILE = '../data/manuscript/templateArxiv.tex'
 OUTPUT_TABLE = '../results/citations/results_table.csv'
 OUTPUT_PLOT = '../results/citations/results_plot.pdf'
 OUTPUT_PLOT_SVG = '../results/citations/results_plot.svg'
+OUTPUT_FIG3 = '../figures/fig3.pdf'  # Main figure for manuscript
 OUTPUT_DETAILED = '../results/citations/detailed_citations.csv'
 OUTPUT_STATS = '../results/citations/statistics_summary.txt'
 
@@ -63,7 +64,7 @@ SECTION_MAPPING = {
         'end_section': r'\\subsection\{',
         'subcategories': {
             'MPC': 'medical professional\ncommunication',
-            'PC': 'patient communication &\ncounselling'
+            'PCC': 'patient communication &\ncounselling'
         }
     },
     'areas': {
@@ -592,6 +593,11 @@ def main():
     # Step 7: Visualization
     print("\n[7/7] Creating visualization...")
     create_visualization(summary_df, OUTPUT_PLOT)
+
+    # Copy to figures directory as fig3.pdf for manuscript
+    import shutil
+    shutil.copy2(OUTPUT_PLOT, OUTPUT_FIG3)
+    print(f"Figure also saved to {OUTPUT_FIG3}")
 
     print("\n" + "=" * 60)
     print("Analysis complete!")
