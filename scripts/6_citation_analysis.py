@@ -567,8 +567,8 @@ def main():
     for section_key, citations in section_citations_filtered.items():
         print(f"  {section_key}: {len(citations)} articles from ST2")
 
-    df.to_csv('./detailed_citations.csv', index=False)
-    print(f"\nDetailed results saved to ./detailed_citations.csv")
+    df.to_csv(OUTPUT_DETAILED, index=False)
+    print(f"\nDetailed results saved to {OUTPUT_DETAILED}")
 
     # Step 4: Summary table
     print("\n[4/7] Creating summary table...")
@@ -585,9 +585,9 @@ def main():
     # Step 6: Text summary
     print("\n[6/7] Creating text summary...")
     text_summary = create_text_summary(df, summary_df, relevance_stats)
-    with open('./statistics_summary.txt', 'w', encoding='utf-8') as f:
+    with open(OUTPUT_STATS, 'w', encoding='utf-8') as f:
         f.write(text_summary)
-    print(f"Text summary saved to ./statistics_summary.txt")
+    print(f"Text summary saved to {OUTPUT_STATS}")
     print("\n" + text_summary)
 
     # Step 7: Visualization

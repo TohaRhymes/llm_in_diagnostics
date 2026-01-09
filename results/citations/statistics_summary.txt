@@ -3,20 +3,20 @@ AGGREGATED STATISTICS SUMMARY
 ======================================================================
 
 OVERALL STATISTICS:
-  Total articles in ST2: 322
-  Total annotated articles: 192
-  Total cited articles: 137
-  Citation rate: 71.4%
+  Total articles in ST2: 325
+  Total annotated articles: 195
+  Total cited articles: 141
+  Citation rate: 72.3%
 
 RELEVANCE DISTRIBUTION (ANNOTATED ARTICLES):
   Relevance 0 (irrelevant): 0 (0.0%)
-  Relevance 1 (partially relevant): 70 (36.5%)
-  Relevance 2 (fully relevant): 122 (63.5%)
+  Relevance 1 (partially relevant): 73 (37.4%)
+  Relevance 2 (fully relevant): 122 (62.6%)
 
 RELEVANCE DISTRIBUTION (CITED ARTICLES):
   Relevance 0 (irrelevant): 0 (0.0%)
-  Relevance 1 (partially relevant): 50 (36.5%)
-  Relevance 2 (fully relevant): 87 (63.5%)
+  Relevance 1 (partially relevant): 54 (38.3%)
+  Relevance 2 (fully relevant): 87 (61.7%)
 
 SUPERCATEGORY STATISTICS (RESULTS SECTIONS):
   Knowledge Navigation:
@@ -33,11 +33,11 @@ SUPERCATEGORY STATISTICS (RESULTS SECTIONS):
     Cited articles: 26
   Communication:
     Unique articles: 28
-    Total entries (with duplicates): 48
-    Cited articles: 37
+    Total entries (with duplicates): 30
+    Cited articles: 24
   Related Research Areas:
-    Unique articles: 43
+    Unique articles: 44
     Total entries (with duplicates): 44
-    Cited articles: 26
+    Cited articles: 25
 
 ======================================================================
